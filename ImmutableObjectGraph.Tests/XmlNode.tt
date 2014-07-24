@@ -1,0 +1,25 @@
+﻿<#@ template debug="true" language="C#" #>
+<#@ Output Extension=".generated.cs" #>
+<#
+	this.Namespace = "ImmutableObjectGraph.Tests";
+#>
+<#@ Include File="..\ImmutableObjectGraph\ImmutableObjectGraph.ttinclude" #>
+<#+
+	abstract class XmlNode {
+		string localName;
+	}
+
+	class XmlElement : XmlNode {
+		string namespaceName;
+		ImmutableList<XmlNode> children;
+	}
+
+	class XmlElementWithContent : XmlElement {
+		string content;
+	}
+
+	class XmlAttribute : XmlNode {
+		string namespaceName;
+		string value;
+	}
+#>

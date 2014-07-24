@@ -1,0 +1,23 @@
+﻿<#@ template debug="true" language="C#" #>
+<#@ Output Extension=".generated.cs" #>
+<#
+	this.Namespace = "ImmutableObjectGraph.Tests";
+#>
+<#@ Include File="..\ImmutableObjectGraph\ImmutableObjectGraph.ttinclude" #>
+<#+
+	class Family {
+		ImmutableSortedSet<Person> members;
+	}
+
+	class Person {
+		[Required]
+		string name;
+		int age;
+		Watch watch;
+	}
+
+	class Watch {
+		string color;
+		int size;
+	}
+#>
