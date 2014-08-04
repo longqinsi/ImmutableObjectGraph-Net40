@@ -3,7 +3,7 @@
 <#
 	this.Namespace = "Demo";
 #>
-<#@ Include File="..\ImmutableObjectGraph\ImmutableObjectGraph.ttinclude" #>
+<#@ Include File="$(SolutionDir)ImmutableObjectGraph\ImmutableObjectGraph.ttinclude" #>
 <#+
 class Fruit {
 	string color;

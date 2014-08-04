@@ -83,7 +83,7 @@ private static bool IsCollectionType(Type type) {
 	}
 
 	if (type.IsGenericType && type.GenericTypeArguments.Length == 1) {
-		Type readOnlyCollection = typeof(IReadOnlyCollectionV40<>);
+		Type readOnlyCollection = typeof(System.Collections.Generic.V40.IReadOnlyCollection<>);
 		var genericReadOnlyCollection = readOnlyCollection.MakeGenericType(type.GenericTypeArguments[0]);
 		if (genericReadOnlyCollection.IsAssignableFrom(type)) {
 			return true;
@@ -100,7 +100,7 @@ private static bool TryGetCollectionElementType(Type collectionType, out Type el
 	}
 
 	if (collectionType.IsGenericType && collectionType.GenericTypeArguments.Length == 1) {
-		Type readOnlyCollection = typeof(IReadOnlyCollectionV40<>);
+		Type readOnlyCollection = typeof(System.Collections.Generic.V40.IReadOnlyCollection<>);
 		var genericReadOnlyCollection = readOnlyCollection.MakeGenericType(collectionType.GenericTypeArguments[0]);
 		if (genericReadOnlyCollection.IsAssignableFrom(collectionType)) {
 			elementType = collectionType.GenericTypeArguments[0];

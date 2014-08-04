@@ -4,6 +4,7 @@
 <#@ assembly name="$(SolutionDir)Output\System.Collections.Immutable.dll" #>
 <#@ Import Namespace="ImmutableObjectGraph" #>
 <#@ Import Namespace="System.Collections.Generic" #>
+<#@ Import Namespace="System.Collections.Generic.V40" #>
 <#@ Import Namespace="System.Collections.Immutable" #>
 <#@ import namespace="System.Linq" #>
 <#@ Import Namespace="System.Reflection" #>
