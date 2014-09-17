@@ -8,17 +8,17 @@ this.HandleType += (templateType, position) => {
 #>
 
 public <#= templateType.Ancestor.TypeName#> To<#= templateType.Ancestor.TypeName#>() {
-	return <#= templateType.Ancestor.TypeName #>.Create(<# WriteArguments(templateType.Ancestor.AllFields, indent: 2); #>);
+	return <#= templateType.Ancestor.TypeName #>.Create(<# WriteArguments(templateType.Ancestor.AllFields, 2); #>);
 }
 <#
 	}
 
-	foreach (MetaType derivedType in templateType.Descendents.Where(d => !d.IsAbstract)) {
+	foreach (MetaType derivedType in EnumerableV20.Where(templateType.Descendents, d => !d.IsAbstract)) {
 #>
 
-public virtual <#= derivedType.TypeName #> To<#= derivedType.TypeName #>(<# WriteParameters(derivedType.GetFieldsBeyond(templateType), ParameterStyle.OptionalOrRequired, indent: 1); #>) {
+public virtual <#= derivedType.TypeName #> To<#= derivedType.TypeName #>(<# WriteParameters(derivedType.GetFieldsBeyond(templateType), ParameterStyle.OptionalOrRequired, 1); #>) {
 	<#= derivedType.TypeName #> that = this as <#= derivedType.TypeName #>;
-	if (that != null && this.GetType().IsEquivalentTo(typeof(<#= derivedType.TypeName #>))) {
+	if (that != null && this.GetType() == typeof(<#= derivedType.TypeName #>)) {
 		if (<#
 		bool firstInSequence = true;
 		PushIndent("\t\t    ");
@@ -40,9 +40,9 @@ public virtual <#= derivedType.TypeName #> To<#= derivedType.TypeName #>(<# Writ
 	}
 
 	return <#= derivedType.TypeName #>.Create(<#
-		WriteArguments(templateType.AllFields, indent: 2);
+		WriteArguments(templateType.AllFields, 2);
 		Write(",");
-		WriteArguments(derivedType.GetFieldsBeyond(templateType), ArgSource.Argument, indent: 2);
+		WriteArguments(derivedType.GetFieldsBeyond(templateType), ArgSource.Argument, 2);
 		#>);
 }
 <#

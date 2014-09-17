@@ -9,106 +9,106 @@
 // ------------------------------------------------------------------------------
 
 namespace ImmutableObjectGraph.Tests {
-	using System.Diagnostics;
-	using System.Linq;
-	using ImmutableObjectGraph;
+    using System.Diagnostics;
+    using System.Linq;
+    using ImmutableObjectGraph;
 	
 	public interface IA {
 		System.Int32 Field1 { get; }
 	}
 	
 	public partial class A : IA {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly A DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly A DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Int32 field1;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Int32 field1;
 	
-		/// <summary>Initializes a new instance of the A class.</summary>
-		protected A()
-		{
-		}
+	    /// <summary>Initializes a new instance of the A class.</summary>
+	    protected A()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the A class.</summary>
-		protected A(
+	    /// <summary>Initializes a new instance of the A class.</summary>
+	    protected A(
 			System.Int32 field1)
-			: base()
-		{
-			this.field1 = field1;
-			this.Validate();
-		}
+	        : base()
+	    {
+	        this.field1 = field1;
+	        this.Validate();
+	    }
 	
-		public static A Create(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return DefaultInstance.With(
-				field1: field1.GetValueOrDefault(DefaultInstance.Field1));
-		}
+	    public static A Create(
+			ImmutableObjectGraph.Optional<System.Int32> field1) {
+	        return DefaultInstance.With(
+				field1.GetValueOrDefault(DefaultInstance.Field1));
+	    }
 	
-		public System.Int32 Field1 {
-			get { return this.field1; }
-		}
+	    public System.Int32 Field1 {
+	        get { return this.field1; }
+	    }
 		
-		/// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
-		public A WithField1(System.Int32 value) {
-			if (value == this.Field1) {
-				return this;
-			}
-		
-			return this.With(field1: value);
-		}
+		///// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
+		//public A WithField1(System.Int32 value) {
+		//	if (value == this.Field1) {
+		//		return this;
+		//	}
+		//
+		//	return this.With(field1: value);
+		//}
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual A With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			if (
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual A With(
+			ImmutableObjectGraph.Optional<System.Int32> field1) {
+	        if (
 				(field1.IsDefined && field1.Value != this.Field1)) {
-				return new A(
-					field1: field1.GetValueOrDefault(this.Field1));
-			} else {
-				return this;
-			}
-		}
+	            return new A(
+					field1.GetValueOrDefault(this.Field1));
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated A whose fields are initialized with default values.</summary>
-		private static A GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new A(
+	    /// <summary>Returns a newly instantiated A whose fields are initialized with default values.</summary>
+	    private static A GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new A(
 				template.Field1);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.Int32 Field1 { get; set; }
-		}
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.Int32 Field1 { get; set; }
+	    }
 		
 		public virtual B ToB(
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+			ImmutableObjectGraph.Optional<System.Int32> field2) {
 			B that = this as B;
-			if (that != null && this.GetType().IsEquivalentTo(typeof(B))) {
+			if (that != null && this.GetType() == typeof(B)) {
 				if ((!field2.IsDefined || field2.Value == that.Field2)) {
 					return that;
 				}
 			}
 		
 			return B.Create(
-				field1: this.Field1,
-				field2: field2);
+				this.Field1,
+				field2);
 		}
 		
 		public virtual C1 ToC1(
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+			ImmutableObjectGraph.Optional<System.Int32> field2,
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
 			C1 that = this as C1;
-			if (that != null && this.GetType().IsEquivalentTo(typeof(C1))) {
+			if (that != null && this.GetType() == typeof(C1)) {
 				if ((!field2.IsDefined || field2.Value == that.Field2) && 
 				    (!field3.IsDefined || field3.Value == that.Field3)) {
 					return that;
@@ -116,16 +116,16 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return C1.Create(
-				field1: this.Field1,
-				field2: field2,
-				field3: field3);
+				this.Field1,
+				field2,
+				field3);
 		}
 		
 		public virtual C2 ToC2(
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+			ImmutableObjectGraph.Optional<System.Int32> field2,
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
 			C2 that = this as C2;
-			if (that != null && this.GetType().IsEquivalentTo(typeof(C2))) {
+			if (that != null && this.GetType() == typeof(C2)) {
 				if ((!field2.IsDefined || field2.Value == that.Field2) && 
 				    (!field3.IsDefined || field3.Value == that.Field3)) {
 					return that;
@@ -133,9 +133,9 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return C2.Create(
-				field1: this.Field1,
-				field2: field2,
-				field3: field3);
+				this.Field1,
+				field2,
+				field3);
 		}
 		
 		public Builder ToBuilder() {
@@ -177,150 +177,150 @@ namespace ImmutableObjectGraph.Tests {
 	}
 	
 	public partial class B : A, IB {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly B DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly B DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Int32 field2;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Int32 field2;
 	
-		/// <summary>Initializes a new instance of the B class.</summary>
-		protected B()
-		{
-		}
+	    /// <summary>Initializes a new instance of the B class.</summary>
+	    protected B()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the B class.</summary>
-		protected B(
+	    /// <summary>Initializes a new instance of the B class.</summary>
+	    protected B(
 			System.Int32 field1,
 			System.Int32 field2)
-			: base(
-				field1: field1)
-		{
-			this.field2 = field2;
-			this.Validate();
-		}
+	        : base(
+				field1)
+	    {
+	        this.field2 = field2;
+	        this.Validate();
+	    }
 	
-		public static B Create(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return DefaultInstance.With(
-				field1: field1.GetValueOrDefault(DefaultInstance.Field1),
-				field2: field2.GetValueOrDefault(DefaultInstance.Field2));
-		}
+	    public static B Create(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2) {
+	        return DefaultInstance.With(
+				field1.GetValueOrDefault(DefaultInstance.Field1),
+				field2.GetValueOrDefault(DefaultInstance.Field2));
+	    }
 	
-		public System.Int32 Field2 {
-			get { return this.field2; }
-		}
+	    public System.Int32 Field2 {
+	        get { return this.field2; }
+	    }
 		
-		/// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
-		public new B WithField1(System.Int32 value) {
-			return (B)base.WithField1(value);
-		}
+		///// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
+		//public new B WithField1(System.Int32 value) {
+		//	return (B)base.WithField1(value);
+		//}
 		
-		/// <summary>Returns a new instance with the Field2 property set to the specified value.</summary>
-		public B WithField2(System.Int32 value) {
-			if (value == this.Field2) {
-				return this;
-			}
-		
-			return this.With(field2: value);
-		}
+		///// <summary>Returns a new instance with the Field2 property set to the specified value.</summary>
+		//public B WithField2(System.Int32 value) {
+		//	if (value == this.Field2) {
+		//		return this;
+		//	}
+		//
+		//	return this.With(field2: value);
+		//}
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public override A With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return this.With(
-				field1: field1,
-				field2: default(ImmutableObjectGraph.Optional<System.Int32>));
-		}
-		
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual B With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			if (
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public override A With(
+			ImmutableObjectGraph.Optional<System.Int32> field1) {
+	        return this.With(
+				field1,
+				default(ImmutableObjectGraph.Optional<System.Int32>));
+	    }
+	    
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual B With(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2) {
+	        if (
 				(field1.IsDefined && field1.Value != this.Field1) || 
 				(field2.IsDefined && field2.Value != this.Field2)) {
-				return new B(
-					field1: field1.GetValueOrDefault(this.Field1),
-					field2: field2.GetValueOrDefault(this.Field2));
-			} else {
-				return this;
-			}
-		}
+	            return new B(
+					field1.GetValueOrDefault(this.Field1),
+					field2.GetValueOrDefault(this.Field2));
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated B whose fields are initialized with default values.</summary>
-		private static B GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new B(
+	    /// <summary>Returns a newly instantiated B whose fields are initialized with default values.</summary>
+	    private static B GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new B(
 				template.Field1, 
 				template.Field2);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.Int32 Field1 { get; set; }
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.Int32 Field1 { get; set; }
 	
-			internal System.Int32 Field2 { get; set; }
-		}
+	        internal System.Int32 Field2 { get; set; }
+	    }
 		
 		public A ToA() {
 			return A.Create(
-				field1: this.Field1);
+				this.Field1);
 		}
 		
 		public virtual C1 ToC1(
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
 			C1 that = this as C1;
-			if (that != null && this.GetType().IsEquivalentTo(typeof(C1))) {
+			if (that != null && this.GetType() == typeof(C1)) {
 				if ((!field3.IsDefined || field3.Value == that.Field3)) {
 					return that;
 				}
 			}
 		
 			return C1.Create(
-				field1: this.Field1,
-				field2: this.Field2,
-				field3: field3);
+				this.Field1,
+				this.Field2,
+				field3);
 		}
 		
 		public override C1 ToC1(
-				ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-				ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+				ImmutableObjectGraph.Optional<System.Int32> field2,
+				ImmutableObjectGraph.Optional<System.Int32> field3) {
 			return base.ToC1(
-					field2: field2.GetValueOrDefault(this.Field2),
-					field3: field3);
+					field2.GetValueOrDefault(this.Field2),
+					field3);
 		}
 		
 		public virtual C2 ToC2(
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
 			C2 that = this as C2;
-			if (that != null && this.GetType().IsEquivalentTo(typeof(C2))) {
+			if (that != null && this.GetType() == typeof(C2)) {
 				if ((!field3.IsDefined || field3.Value == that.Field3)) {
 					return that;
 				}
 			}
 		
 			return C2.Create(
-				field1: this.Field1,
-				field2: this.Field2,
-				field3: field3);
+				this.Field1,
+				this.Field2,
+				field3);
 		}
 		
 		public override C2 ToC2(
-				ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-				ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
+				ImmutableObjectGraph.Optional<System.Int32> field2,
+				ImmutableObjectGraph.Optional<System.Int32> field3) {
 			return base.ToC2(
-					field2: field2.GetValueOrDefault(this.Field2),
-					field3: field3);
+					field2.GetValueOrDefault(this.Field2),
+					field3);
 		}
 		
 		public new Builder ToBuilder() {
@@ -363,122 +363,122 @@ namespace ImmutableObjectGraph.Tests {
 	}
 	
 	public partial class C1 : B, IC1 {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly C1 DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly C1 DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Int32 field3;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Int32 field3;
 	
-		/// <summary>Initializes a new instance of the C1 class.</summary>
-		protected C1()
-		{
-		}
+	    /// <summary>Initializes a new instance of the C1 class.</summary>
+	    protected C1()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the C1 class.</summary>
-		protected C1(
+	    /// <summary>Initializes a new instance of the C1 class.</summary>
+	    protected C1(
 			System.Int32 field1,
 			System.Int32 field2,
 			System.Int32 field3)
-			: base(
-				field1: field1,
-				field2: field2)
-		{
-			this.field3 = field3;
-			this.Validate();
-		}
+	        : base(
+				field1,
+				field2)
+	    {
+	        this.field3 = field3;
+	        this.Validate();
+	    }
 	
-		public static C1 Create(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return DefaultInstance.With(
-				field1: field1.GetValueOrDefault(DefaultInstance.Field1),
-				field2: field2.GetValueOrDefault(DefaultInstance.Field2),
-				field3: field3.GetValueOrDefault(DefaultInstance.Field3));
-		}
+	    public static C1 Create(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2,
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
+	        return DefaultInstance.With(
+				field1.GetValueOrDefault(DefaultInstance.Field1),
+				field2.GetValueOrDefault(DefaultInstance.Field2),
+				field3.GetValueOrDefault(DefaultInstance.Field3));
+	    }
 	
-		public System.Int32 Field3 {
-			get { return this.field3; }
-		}
+	    public System.Int32 Field3 {
+	        get { return this.field3; }
+	    }
 		
-		/// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
-		public new C1 WithField1(System.Int32 value) {
-			return (C1)base.WithField1(value);
-		}
+		///// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
+		//public new C1 WithField1(System.Int32 value) {
+		//	return (C1)base.WithField1(value);
+		//}
 		
-		/// <summary>Returns a new instance with the Field2 property set to the specified value.</summary>
-		public new C1 WithField2(System.Int32 value) {
-			return (C1)base.WithField2(value);
-		}
+		///// <summary>Returns a new instance with the Field2 property set to the specified value.</summary>
+		//public new C1 WithField2(System.Int32 value) {
+		//	return (C1)base.WithField2(value);
+		//}
 		
-		/// <summary>Returns a new instance with the Field3 property set to the specified value.</summary>
-		public C1 WithField3(System.Int32 value) {
-			if (value == this.Field3) {
-				return this;
-			}
-		
-			return this.With(field3: value);
-		}
+		///// <summary>Returns a new instance with the Field3 property set to the specified value.</summary>
+		//public C1 WithField3(System.Int32 value) {
+		//	if (value == this.Field3) {
+		//		return this;
+		//	}
+		//
+		//	return this.With(field3: value);
+		//}
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public override B With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return this.With(
-				field1: field1,
-				field2: field2,
-				field3: default(ImmutableObjectGraph.Optional<System.Int32>));
-		}
-		
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual C1 With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			if (
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public override B With(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2) {
+	        return this.With(
+				field1,
+				field2,
+				default(ImmutableObjectGraph.Optional<System.Int32>));
+	    }
+	    
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual C1 With(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2,
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
+	        if (
 				(field1.IsDefined && field1.Value != this.Field1) || 
 				(field2.IsDefined && field2.Value != this.Field2) || 
 				(field3.IsDefined && field3.Value != this.Field3)) {
-				return new C1(
-					field1: field1.GetValueOrDefault(this.Field1),
-					field2: field2.GetValueOrDefault(this.Field2),
-					field3: field3.GetValueOrDefault(this.Field3));
-			} else {
-				return this;
-			}
-		}
+	            return new C1(
+					field1.GetValueOrDefault(this.Field1),
+					field2.GetValueOrDefault(this.Field2),
+					field3.GetValueOrDefault(this.Field3));
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated C1 whose fields are initialized with default values.</summary>
-		private static C1 GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new C1(
+	    /// <summary>Returns a newly instantiated C1 whose fields are initialized with default values.</summary>
+	    private static C1 GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new C1(
 				template.Field1, 
 				template.Field2, 
 				template.Field3);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.Int32 Field1 { get; set; }
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.Int32 Field1 { get; set; }
 	
-			internal System.Int32 Field2 { get; set; }
+	        internal System.Int32 Field2 { get; set; }
 	
-			internal System.Int32 Field3 { get; set; }
-		}
+	        internal System.Int32 Field3 { get; set; }
+	    }
 		
 		public B ToB() {
 			return B.Create(
-				field1: this.Field1,
-				field2: this.Field2);
+				this.Field1,
+				this.Field2);
 		}
 		
 		public new Builder ToBuilder() {
@@ -522,122 +522,122 @@ namespace ImmutableObjectGraph.Tests {
 	}
 	
 	public partial class C2 : B, IC2 {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly C2 DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly C2 DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Int32 field3;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Int32 field3;
 	
-		/// <summary>Initializes a new instance of the C2 class.</summary>
-		protected C2()
-		{
-		}
+	    /// <summary>Initializes a new instance of the C2 class.</summary>
+	    protected C2()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the C2 class.</summary>
-		protected C2(
+	    /// <summary>Initializes a new instance of the C2 class.</summary>
+	    protected C2(
 			System.Int32 field1,
 			System.Int32 field2,
 			System.Int32 field3)
-			: base(
-				field1: field1,
-				field2: field2)
-		{
-			this.field3 = field3;
-			this.Validate();
-		}
+	        : base(
+				field1,
+				field2)
+	    {
+	        this.field3 = field3;
+	        this.Validate();
+	    }
 	
-		public static C2 Create(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return DefaultInstance.With(
-				field1: field1.GetValueOrDefault(DefaultInstance.Field1),
-				field2: field2.GetValueOrDefault(DefaultInstance.Field2),
-				field3: field3.GetValueOrDefault(DefaultInstance.Field3));
-		}
+	    public static C2 Create(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2,
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
+	        return DefaultInstance.With(
+				field1.GetValueOrDefault(DefaultInstance.Field1),
+				field2.GetValueOrDefault(DefaultInstance.Field2),
+				field3.GetValueOrDefault(DefaultInstance.Field3));
+	    }
 	
-		public System.Int32 Field3 {
-			get { return this.field3; }
-		}
+	    public System.Int32 Field3 {
+	        get { return this.field3; }
+	    }
 		
-		/// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
-		public new C2 WithField1(System.Int32 value) {
-			return (C2)base.WithField1(value);
-		}
+		///// <summary>Returns a new instance with the Field1 property set to the specified value.</summary>
+		//public new C2 WithField1(System.Int32 value) {
+		//	return (C2)base.WithField1(value);
+		//}
 		
-		/// <summary>Returns a new instance with the Field2 property set to the specified value.</summary>
-		public new C2 WithField2(System.Int32 value) {
-			return (C2)base.WithField2(value);
-		}
+		///// <summary>Returns a new instance with the Field2 property set to the specified value.</summary>
+		//public new C2 WithField2(System.Int32 value) {
+		//	return (C2)base.WithField2(value);
+		//}
 		
-		/// <summary>Returns a new instance with the Field3 property set to the specified value.</summary>
-		public C2 WithField3(System.Int32 value) {
-			if (value == this.Field3) {
-				return this;
-			}
-		
-			return this.With(field3: value);
-		}
+		///// <summary>Returns a new instance with the Field3 property set to the specified value.</summary>
+		//public C2 WithField3(System.Int32 value) {
+		//	if (value == this.Field3) {
+		//		return this;
+		//	}
+		//
+		//	return this.With(field3: value);
+		//}
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public override B With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return this.With(
-				field1: field1,
-				field2: field2,
-				field3: default(ImmutableObjectGraph.Optional<System.Int32>));
-		}
-		
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual C2 With(
-			ImmutableObjectGraph.Optional<System.Int32> field1 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field2 = default(ImmutableObjectGraph.Optional<System.Int32>),
-			ImmutableObjectGraph.Optional<System.Int32> field3 = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			if (
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public override B With(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2) {
+	        return this.With(
+				field1,
+				field2,
+				default(ImmutableObjectGraph.Optional<System.Int32>));
+	    }
+	    
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual C2 With(
+			ImmutableObjectGraph.Optional<System.Int32> field1,
+			ImmutableObjectGraph.Optional<System.Int32> field2,
+			ImmutableObjectGraph.Optional<System.Int32> field3) {
+	        if (
 				(field1.IsDefined && field1.Value != this.Field1) || 
 				(field2.IsDefined && field2.Value != this.Field2) || 
 				(field3.IsDefined && field3.Value != this.Field3)) {
-				return new C2(
-					field1: field1.GetValueOrDefault(this.Field1),
-					field2: field2.GetValueOrDefault(this.Field2),
-					field3: field3.GetValueOrDefault(this.Field3));
-			} else {
-				return this;
-			}
-		}
+	            return new C2(
+					field1.GetValueOrDefault(this.Field1),
+					field2.GetValueOrDefault(this.Field2),
+					field3.GetValueOrDefault(this.Field3));
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated C2 whose fields are initialized with default values.</summary>
-		private static C2 GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new C2(
+	    /// <summary>Returns a newly instantiated C2 whose fields are initialized with default values.</summary>
+	    private static C2 GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new C2(
 				template.Field1, 
 				template.Field2, 
 				template.Field3);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.Int32 Field1 { get; set; }
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.Int32 Field1 { get; set; }
 	
-			internal System.Int32 Field2 { get; set; }
+	        internal System.Int32 Field2 { get; set; }
 	
-			internal System.Int32 Field3 { get; set; }
-		}
+	        internal System.Int32 Field3 { get; set; }
+	    }
 		
 		public B ToB() {
 			return B.Create(
-				field1: this.Field1,
-				field2: this.Field2);
+				this.Field1,
+				this.Field2);
 		}
 		
 		public new Builder ToBuilder() {

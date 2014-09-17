@@ -9,44 +9,44 @@
 // ------------------------------------------------------------------------------
 
 namespace ImmutableObjectGraph.Tests {
-	using System.Diagnostics;
-	using System.Linq;
-	using ImmutableObjectGraph;
+    using System.Diagnostics;
+    using System.Linq;
+    using ImmutableObjectGraph;
 	
 	public interface IFamily {
 		System.Collections.Immutable.ImmutableSortedSet<Person> Members { get; }
 	}
 	
 	public partial class Family : IFamily {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly Family DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly Family DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Collections.Immutable.ImmutableSortedSet<Person> members;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Collections.Immutable.ImmutableSortedSet<Person> members;
 	
-		/// <summary>Initializes a new instance of the Family class.</summary>
-		protected Family()
-		{
-		}
+	    /// <summary>Initializes a new instance of the Family class.</summary>
+	    protected Family()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the Family class.</summary>
-		protected Family(
+	    /// <summary>Initializes a new instance of the Family class.</summary>
+	    protected Family(
 			System.Collections.Immutable.ImmutableSortedSet<Person> members)
-			: base()
-		{
-			this.members = members;
-			this.Validate();
-		}
+	        : base()
+	    {
+	        this.members = members;
+	        this.Validate();
+	    }
 	
-		public static Family Create(
+	    public static Family Create(
 			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<Person>> members = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<Person>>)) {
-			return DefaultInstance.With(
+	        return DefaultInstance.With(
 				members: members.GetValueOrDefault(DefaultInstance.Members));
-		}
+	    }
 	
-		public System.Collections.Immutable.ImmutableSortedSet<Person> Members {
-			get { return this.members; }
-		}
+	    public System.Collections.Immutable.ImmutableSortedSet<Person> Members {
+	        get { return this.members; }
+	    }
 		
 		/// <summary>Returns a new instance with the Members property set to the specified value.</summary>
 		public Family WithMembers(System.Collections.Immutable.ImmutableSortedSet<Person> value) {
@@ -59,22 +59,22 @@ namespace ImmutableObjectGraph.Tests {
 		
 		/// <summary>Replaces the elements of the Members collection with the specified collection.</summary>
 		public Family WithMembers(params Person[] values) {
-			return this.With(members: this.Members.ResetContents(values));
+			return this.With(members: CollectionExtensions.ResetContents(this.Members, values));
 		}
 		
 		/// <summary>Replaces the elements of the Members collection with the specified collection.</summary>
 		public Family WithMembers(System.Collections.Generic.IEnumerable<Person> values) {
-			return this.With(members: this.Members.ResetContents(values));
+			return this.With(members: CollectionExtensions.ResetContents(this.Members, values));
 		}
 		
 		/// <summary>Adds the specified elements from the Members collection.</summary>
 		public Family AddMembers(System.Collections.Generic.IEnumerable<Person> values) {
-			return this.With(members: this.Members.AddRange(values));
+			return this.With(members: CollectionExtensions.AddRange(this.Members, values));
 		}
 		
 		/// <summary>Adds the specified elements from the Members collection.</summary>
 		public Family AddMembers(params Person[] values) {
-			return this.With(members: this.Members.AddRange(values));
+			return this.With(members: CollectionExtensions.AddRange(this.Members, values));
 		}
 		
 		/// <summary>Adds the specified element from the Members collection.</summary>
@@ -84,12 +84,12 @@ namespace ImmutableObjectGraph.Tests {
 		
 		/// <summary>Removes the specified elements from the Members collection.</summary>
 		public Family RemoveMembers(System.Collections.Generic.IEnumerable<Person> values) {
-			return this.With(members: this.Members.RemoveRange(values));
+			return this.With(members: CollectionExtensions.RemoveRange(this.Members, values));
 		}
 		
 		/// <summary>Removes the specified elements from the Members collection.</summary>
 		public Family RemoveMembers(params Person[] values) {
-			return this.With(members: this.Members.RemoveRange(values));
+			return this.With(members: CollectionExtensions.RemoveRange(this.Members, values));
 		}
 		
 		/// <summary>Removes the specified element from the Members collection.</summary>
@@ -103,38 +103,38 @@ namespace ImmutableObjectGraph.Tests {
 		}
 		
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual Family With(
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual Family With(
 			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<Person>> members = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<Person>>)) {
-			if (
+	        if (
 				(members.IsDefined && members.Value != this.Members)) {
-				return new Family(
+	            return new Family(
 					members: members.GetValueOrDefault(this.Members));
-			} else {
-				return this;
-			}
-		}
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated Family whose fields are initialized with default values.</summary>
-		private static Family GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new Family(
+	    /// <summary>Returns a newly instantiated Family whose fields are initialized with default values.</summary>
+	    private static Family GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new Family(
 				template.Members);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.Collections.Immutable.ImmutableSortedSet<Person> Members { get; set; }
-		}
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.Collections.Immutable.ImmutableSortedSet<Person> Members { get; set; }
+	    }
 		
 		public Builder ToBuilder() {
 			return new Builder(this);
@@ -181,57 +181,57 @@ namespace ImmutableObjectGraph.Tests {
 	}
 	
 	public partial class Person : IPerson {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly Person DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly Person DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.String name;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.String name;
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Int32 age;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Int32 age;
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly Watch watch;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly Watch watch;
 	
-		/// <summary>Initializes a new instance of the Person class.</summary>
-		protected Person()
-		{
-		}
+	    /// <summary>Initializes a new instance of the Person class.</summary>
+	    protected Person()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the Person class.</summary>
-		protected Person(
+	    /// <summary>Initializes a new instance of the Person class.</summary>
+	    protected Person(
 			System.String name,
 			System.Int32 age,
 			Watch watch)
-			: base()
-		{
-			this.name = name;
-			this.age = age;
-			this.watch = watch;
-			this.Validate();
-		}
+	        : base()
+	    {
+	        this.name = name;
+	        this.age = age;
+	        this.watch = watch;
+	        this.Validate();
+	    }
 	
-		public static Person Create(
+	    public static Person Create(
 			System.String name,
 			ImmutableObjectGraph.Optional<System.Int32> age = default(ImmutableObjectGraph.Optional<System.Int32>),
 			ImmutableObjectGraph.Optional<Watch> watch = default(ImmutableObjectGraph.Optional<Watch>)) {
-			return DefaultInstance.With(
+	        return DefaultInstance.With(
 				name: name,
 				age: age.GetValueOrDefault(DefaultInstance.Age),
 				watch: watch.GetValueOrDefault(DefaultInstance.Watch));
-		}
+	    }
 	
-		public System.String Name {
-			get { return this.name; }
-		}
+	    public System.String Name {
+	        get { return this.name; }
+	    }
 	
-		public System.Int32 Age {
-			get { return this.age; }
-		}
+	    public System.Int32 Age {
+	        get { return this.age; }
+	    }
 	
-		public Watch Watch {
-			get { return this.watch; }
-		}
+	    public Watch Watch {
+	        get { return this.watch; }
+	    }
 		
 		/// <summary>Returns a new instance with the Name property set to the specified value.</summary>
 		public Person WithName(System.String value) {
@@ -260,50 +260,50 @@ namespace ImmutableObjectGraph.Tests {
 			return this.With(watch: value);
 		}
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual Person With(
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual Person With(
 			ImmutableObjectGraph.Optional<System.String> name = default(ImmutableObjectGraph.Optional<System.String>),
 			ImmutableObjectGraph.Optional<System.Int32> age = default(ImmutableObjectGraph.Optional<System.Int32>),
 			ImmutableObjectGraph.Optional<Watch> watch = default(ImmutableObjectGraph.Optional<Watch>)) {
-			if (
+	        if (
 				(name.IsDefined && name.Value != this.Name) || 
 				(age.IsDefined && age.Value != this.Age) || 
 				(watch.IsDefined && watch.Value != this.Watch)) {
-				return new Person(
+	            return new Person(
 					name: name.GetValueOrDefault(this.Name),
 					age: age.GetValueOrDefault(this.Age),
 					watch: watch.GetValueOrDefault(this.Watch));
-			} else {
-				return this;
-			}
-		}
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated Person whose fields are initialized with default values.</summary>
-		private static Person GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new Person(
+	    /// <summary>Returns a newly instantiated Person whose fields are initialized with default values.</summary>
+	    private static Person GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new Person(
 				template.Name, 
 				template.Age, 
 				template.Watch);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.String Name { get; set; }
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.String Name { get; set; }
 	
-			internal System.Int32 Age { get; set; }
+	        internal System.Int32 Age { get; set; }
 	
-			internal Watch Watch { get; set; }
-		}
+	        internal Watch Watch { get; set; }
+	    }
 		
 		public Builder ToBuilder() {
 			return new Builder(this);
@@ -379,46 +379,46 @@ namespace ImmutableObjectGraph.Tests {
 	}
 	
 	public partial class Watch : IWatch {
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private static readonly Watch DefaultInstance = GetDefaultTemplate();
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private static readonly Watch DefaultInstance = GetDefaultTemplate();
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.String color;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.String color;
 	
-		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly System.Int32 size;
+	    [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+	    private readonly System.Int32 size;
 	
-		/// <summary>Initializes a new instance of the Watch class.</summary>
-		protected Watch()
-		{
-		}
+	    /// <summary>Initializes a new instance of the Watch class.</summary>
+	    protected Watch()
+	    {
+	    }
 	
-		/// <summary>Initializes a new instance of the Watch class.</summary>
-		protected Watch(
+	    /// <summary>Initializes a new instance of the Watch class.</summary>
+	    protected Watch(
 			System.String color,
 			System.Int32 size)
-			: base()
-		{
-			this.color = color;
-			this.size = size;
-			this.Validate();
-		}
+	        : base()
+	    {
+	        this.color = color;
+	        this.size = size;
+	        this.Validate();
+	    }
 	
-		public static Watch Create(
+	    public static Watch Create(
 			ImmutableObjectGraph.Optional<System.String> color = default(ImmutableObjectGraph.Optional<System.String>),
 			ImmutableObjectGraph.Optional<System.Int32> size = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			return DefaultInstance.With(
+	        return DefaultInstance.With(
 				color: color.GetValueOrDefault(DefaultInstance.Color),
 				size: size.GetValueOrDefault(DefaultInstance.Size));
-		}
+	    }
 	
-		public System.String Color {
-			get { return this.color; }
-		}
+	    public System.String Color {
+	        get { return this.color; }
+	    }
 	
-		public System.Int32 Size {
-			get { return this.size; }
-		}
+	    public System.Int32 Size {
+	        get { return this.size; }
+	    }
 		
 		/// <summary>Returns a new instance with the Color property set to the specified value.</summary>
 		public Watch WithColor(System.String value) {
@@ -438,44 +438,44 @@ namespace ImmutableObjectGraph.Tests {
 			return this.With(size: value);
 		}
 	
-		/// <summary>Returns a new instance of this object with any number of properties changed.</summary>
-		public virtual Watch With(
+	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
+	    public virtual Watch With(
 			ImmutableObjectGraph.Optional<System.String> color = default(ImmutableObjectGraph.Optional<System.String>),
 			ImmutableObjectGraph.Optional<System.Int32> size = default(ImmutableObjectGraph.Optional<System.Int32>)) {
-			if (
+	        if (
 				(color.IsDefined && color.Value != this.Color) || 
 				(size.IsDefined && size.Value != this.Size)) {
-				return new Watch(
+	            return new Watch(
 					color: color.GetValueOrDefault(this.Color),
 					size: size.GetValueOrDefault(this.Size));
-			} else {
-				return this;
-			}
-		}
+	        } else {
+	            return this;
+	        }
+	    }
 	
-		/// <summary>Normalizes and/or validates all properties on this object.</summary>
-		/// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
-		partial void Validate();
+	    /// <summary>Normalizes and/or validates all properties on this object.</summary>
+	    /// <exception type="ArgumentException">Thrown if any properties have disallowed values.</exception>
+	    partial void Validate();
 	
-		/// <summary>Provides defaults for fields.</summary>
-		/// <param name="template">The struct to set default values on.</param>
-		static partial void CreateDefaultTemplate(ref Template template);
+	    /// <summary>Provides defaults for fields.</summary>
+	    /// <param name="template">The struct to set default values on.</param>
+	    static partial void CreateDefaultTemplate(ref Template template);
 	
-		/// <summary>Returns a newly instantiated Watch whose fields are initialized with default values.</summary>
-		private static Watch GetDefaultTemplate() {
-			var template = new Template();
-			CreateDefaultTemplate(ref template);
-			return new Watch(
+	    /// <summary>Returns a newly instantiated Watch whose fields are initialized with default values.</summary>
+	    private static Watch GetDefaultTemplate() {
+	        var template = new Template();
+	        CreateDefaultTemplate(ref template);
+	        return new Watch(
 				template.Color, 
 				template.Size);
-		}
+	    }
 	
-		/// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
-		private struct Template {
-			internal System.String Color { get; set; }
+	    /// <summary>A struct with all the same fields as the containing type for use in describing default values for new instances of the class.</summary>
+	    private struct Template {
+	        internal System.String Color { get; set; }
 	
-			internal System.Int32 Size { get; set; }
-		}
+	        internal System.Int32 Size { get; set; }
+	    }
 		
 		public Builder ToBuilder() {
 			return new Builder(this);
