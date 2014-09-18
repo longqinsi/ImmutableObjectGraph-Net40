@@ -7,24 +7,25 @@ this.HandleType += (templateType, position) => {
 	if (templateType.IsRecursive) {
 #>
 
-//public <#= templateType.TypeName #> ReplaceDescendent(<#= templateType.RecursiveType.TypeName #> current, <#= templateType.RecursiveType.TypeName #> /replacement)/ {
-//	// TODO: fix this horribly inefficient algorithm.
-//	var newChildren = this.<#= templateType.RecursiveField.NamePascalCase #>.Replace(current, replacement);
-//	if (this.<#= templateType.RecursiveField.NamePascalCase #> != newChildren) {
-//		return this.With<#= templateType.RecursiveField.NamePascalCase #>(newChildren);
-//	}
-//	
-//	foreach (var child in EnumerableV20.OfType<<#= templateType.RecursiveField.DeclaringType.TypeName #>>(this))
-//	{
-//		var newChild = child.ReplaceDescendent(current, replacement);
-//		if (newChild != child) {
-//			newChildren = this.<#= templateType.RecursiveField.NamePascalCase #>.Replace(child, newChild);
-//			return this.With<#= templateType.RecursiveField.NamePascalCase #>(newChildren);
-//		}
-//	}
-//		
-//	return this;
-//}
+public <#= templateType.TypeName #> ReplaceDescendent(<#= templateType.RecursiveType.TypeName #> current, <#= templateType.RecursiveType.TypeName #> replacement)
+{
+	// TODO: fix this horribly inefficient algorithm.
+	var newChildren = this.<#= templateType.RecursiveField.NamePascalCase #>.Replace(current, replacement);
+	if (this.<#= templateType.RecursiveField.NamePascalCase #> != newChildren) {
+		return this.With<#= templateType.RecursiveField.NamePascalCase #>(newChildren);
+	}
+	
+	foreach (var child in EnumerableV20.OfType<<#= templateType.RecursiveField.DeclaringType.TypeName #>>(this))
+	{
+		var newChild = child.ReplaceDescendent(current, replacement);
+		if (newChild != child) {
+			newChildren = this.<#= templateType.RecursiveField.NamePascalCase #>.Replace(child, newChild);
+			return this.With<#= templateType.RecursiveField.NamePascalCase #>(newChildren);
+		}
+	}
+		
+	return this;
+}
 <#
 	}
 }; // event handler

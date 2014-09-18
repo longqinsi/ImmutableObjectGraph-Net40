@@ -46,10 +46,10 @@ namespace ImmutableObjectGraph.Tests {
 	
 	    public static ReqAndHierL1 Create(
 			System.String l1Field2,
-			ImmutableObjectGraph.Optional<System.String> l1Field1) {
+			ImmutableObjectGraph.Optional<System.String> l1Field1 = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return DefaultInstance.With(
-				l1Field1.GetValueOrDefault(DefaultInstance.L1Field1),
-				l1Field2);
+				l1Field1: l1Field1.GetValueOrDefault(DefaultInstance.L1Field1),
+				l1Field2: l1Field2);
 	    }
 	
 	    public System.String L1Field1 {
@@ -60,34 +60,34 @@ namespace ImmutableObjectGraph.Tests {
 	        get { return this.l1Field2; }
 	    }
 		
-		///// <summary>Returns a new instance with the L1Field1 property set to the specified value.</summary>
-		//public ReqAndHierL1 WithL1Field1(System.String value) {
-		//	if (value == this.L1Field1) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(l1Field1: value);
-		//}
+		/// <summary>Returns a new instance with the L1Field1 property set to the specified value.</summary>
+		public ReqAndHierL1 WithL1Field1(System.String value) {
+			if (value == this.L1Field1) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the L1Field2 property set to the specified value.</summary>
-		//public ReqAndHierL1 WithL1Field2(System.String value) {
-		//	if (value == this.L1Field2) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(l1Field2: value);
-		//}
+			return this.With(l1Field1: value);
+		}
+		
+		/// <summary>Returns a new instance with the L1Field2 property set to the specified value.</summary>
+		public ReqAndHierL1 WithL1Field2(System.String value) {
+			if (value == this.L1Field2) {
+				return this;
+			}
+		
+			return this.With(l1Field2: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual ReqAndHierL1 With(
-			ImmutableObjectGraph.Optional<System.String> l1Field1,
-			ImmutableObjectGraph.Optional<System.String> l1Field2) {
+			ImmutableObjectGraph.Optional<System.String> l1Field1 = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> l1Field2 = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        if (
 				(l1Field1.IsDefined && l1Field1.Value != this.L1Field1) || 
 				(l1Field2.IsDefined && l1Field2.Value != this.L1Field2)) {
 	            return new ReqAndHierL1(
-					l1Field1.GetValueOrDefault(this.L1Field1),
-					l1Field2.GetValueOrDefault(this.L1Field2));
+					l1Field1: l1Field1.GetValueOrDefault(this.L1Field1),
+					l1Field2: l1Field2.GetValueOrDefault(this.L1Field2));
 	        } else {
 	            return this;
 	        }
@@ -119,7 +119,7 @@ namespace ImmutableObjectGraph.Tests {
 		
 		public virtual ReqAndHierL2 ToReqAndHierL2(
 			System.String l2Field2,
-			ImmutableObjectGraph.Optional<System.String> l2Field1) {
+			ImmutableObjectGraph.Optional<System.String> l2Field1 = default(ImmutableObjectGraph.Optional<System.String>)) {
 			ReqAndHierL2 that = this as ReqAndHierL2;
 			if (that != null && this.GetType() == typeof(ReqAndHierL2)) {
 				if ((!l2Field1.IsDefined || l2Field1.Value == that.L2Field1) && 
@@ -129,10 +129,10 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return ReqAndHierL2.Create(
-				this.L1Field1,
-				this.L1Field2,
-				l2Field1,
-				l2Field2);
+				l1Field1: this.L1Field1,
+				l1Field2: this.L1Field2,
+				l2Field1: l2Field1,
+				l2Field2: l2Field2);
 		}
 		
 		public Builder ToBuilder() {
@@ -211,8 +211,8 @@ namespace ImmutableObjectGraph.Tests {
 			System.String l2Field1,
 			System.String l2Field2)
 	        : base(
-				l1Field1,
-				l1Field2)
+				l1Field1: l1Field1,
+				l1Field2: l1Field2)
 	    {
 	        this.l2Field1 = l2Field1;
 	        this.l2Field2 = l2Field2;
@@ -222,13 +222,13 @@ namespace ImmutableObjectGraph.Tests {
 	    public static ReqAndHierL2 Create(
 			System.String l1Field2,
 			System.String l2Field2,
-			ImmutableObjectGraph.Optional<System.String> l1Field1,
-			ImmutableObjectGraph.Optional<System.String> l2Field1) {
+			ImmutableObjectGraph.Optional<System.String> l1Field1 = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> l2Field1 = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return DefaultInstance.With(
-				l1Field1.GetValueOrDefault(DefaultInstance.L1Field1),
-				l1Field2,
-				l2Field1.GetValueOrDefault(DefaultInstance.L2Field1),
-				l2Field2);
+				l1Field1: l1Field1.GetValueOrDefault(DefaultInstance.L1Field1),
+				l1Field2: l1Field2,
+				l2Field1: l2Field1.GetValueOrDefault(DefaultInstance.L2Field1),
+				l2Field2: l2Field2);
 	    }
 	
 	    public System.String L2Field1 {
@@ -239,61 +239,61 @@ namespace ImmutableObjectGraph.Tests {
 	        get { return this.l2Field2; }
 	    }
 		
-		///// <summary>Returns a new instance with the L1Field1 property set to the specified value.</summary>
-		//public new ReqAndHierL2 WithL1Field1(System.String value) {
-		//	return (ReqAndHierL2)base.WithL1Field1(value);
-		//}
+		/// <summary>Returns a new instance with the L1Field1 property set to the specified value.</summary>
+		public new ReqAndHierL2 WithL1Field1(System.String value) {
+			return (ReqAndHierL2)base.WithL1Field1(value);
+		}
 		
-		///// <summary>Returns a new instance with the L1Field2 property set to the specified value.</summary>
-		//public new ReqAndHierL2 WithL1Field2(System.String value) {
-		//	return (ReqAndHierL2)base.WithL1Field2(value);
-		//}
+		/// <summary>Returns a new instance with the L1Field2 property set to the specified value.</summary>
+		public new ReqAndHierL2 WithL1Field2(System.String value) {
+			return (ReqAndHierL2)base.WithL1Field2(value);
+		}
 		
-		///// <summary>Returns a new instance with the L2Field1 property set to the specified value.</summary>
-		//public ReqAndHierL2 WithL2Field1(System.String value) {
-		//	if (value == this.L2Field1) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(l2Field1: value);
-		//}
+		/// <summary>Returns a new instance with the L2Field1 property set to the specified value.</summary>
+		public ReqAndHierL2 WithL2Field1(System.String value) {
+			if (value == this.L2Field1) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the L2Field2 property set to the specified value.</summary>
-		//public ReqAndHierL2 WithL2Field2(System.String value) {
-		//	if (value == this.L2Field2) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(l2Field2: value);
-		//}
+			return this.With(l2Field1: value);
+		}
+		
+		/// <summary>Returns a new instance with the L2Field2 property set to the specified value.</summary>
+		public ReqAndHierL2 WithL2Field2(System.String value) {
+			if (value == this.L2Field2) {
+				return this;
+			}
+		
+			return this.With(l2Field2: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public override ReqAndHierL1 With(
-			ImmutableObjectGraph.Optional<System.String> l1Field1,
-			ImmutableObjectGraph.Optional<System.String> l1Field2) {
+			ImmutableObjectGraph.Optional<System.String> l1Field1 = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> l1Field2 = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return this.With(
-				l1Field1,
-				l1Field2,
-				default(ImmutableObjectGraph.Optional<System.String>),
-				default(ImmutableObjectGraph.Optional<System.String>));
+				l1Field1: l1Field1,
+				l1Field2: l1Field2,
+				l2Field1: default(ImmutableObjectGraph.Optional<System.String>),
+				l2Field2: default(ImmutableObjectGraph.Optional<System.String>));
 	    }
 	    
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual ReqAndHierL2 With(
-			ImmutableObjectGraph.Optional<System.String> l1Field1,
-			ImmutableObjectGraph.Optional<System.String> l1Field2,
-			ImmutableObjectGraph.Optional<System.String> l2Field1,
-			ImmutableObjectGraph.Optional<System.String> l2Field2) {
+			ImmutableObjectGraph.Optional<System.String> l1Field1 = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> l1Field2 = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> l2Field1 = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> l2Field2 = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        if (
 				(l1Field1.IsDefined && l1Field1.Value != this.L1Field1) || 
 				(l1Field2.IsDefined && l1Field2.Value != this.L1Field2) || 
 				(l2Field1.IsDefined && l2Field1.Value != this.L2Field1) || 
 				(l2Field2.IsDefined && l2Field2.Value != this.L2Field2)) {
 	            return new ReqAndHierL2(
-					l1Field1.GetValueOrDefault(this.L1Field1),
-					l1Field2.GetValueOrDefault(this.L1Field2),
-					l2Field1.GetValueOrDefault(this.L2Field1),
-					l2Field2.GetValueOrDefault(this.L2Field2));
+					l1Field1: l1Field1.GetValueOrDefault(this.L1Field1),
+					l1Field2: l1Field2.GetValueOrDefault(this.L1Field2),
+					l2Field1: l2Field1.GetValueOrDefault(this.L2Field1),
+					l2Field2: l2Field2.GetValueOrDefault(this.L2Field2));
 	        } else {
 	            return this;
 	        }
@@ -331,8 +331,8 @@ namespace ImmutableObjectGraph.Tests {
 		
 		public ReqAndHierL1 ToReqAndHierL1() {
 			return ReqAndHierL1.Create(
-				this.L1Field1,
-				this.L1Field2);
+				l1Field1: this.L1Field1,
+				l1Field2: this.L1Field2);
 		}
 		
 		public new Builder ToBuilder() {

@@ -39,21 +39,21 @@ namespace ImmutableObjectGraph.Tests {
 	        get { return this.pathSegment; }
 	    }
 		
-		///// <summary>Returns a new instance with the PathSegment property set to the specified value.</summary>
-		//public FileSystemEntry WithPathSegment(System.String value) {
-		//	if (value == this.PathSegment) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(pathSegment: value);
-		//}
+		/// <summary>Returns a new instance with the PathSegment property set to the specified value.</summary>
+		public FileSystemEntry WithPathSegment(System.String value) {
+			if (value == this.PathSegment) {
+				return this;
+			}
+		
+			return this.With(pathSegment: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public abstract FileSystemEntry With(
-			ImmutableObjectGraph.Optional<System.String> pathSegment);
+			ImmutableObjectGraph.Optional<System.String> pathSegment = default(ImmutableObjectGraph.Optional<System.String>));
 		
 		public virtual FileSystemFile ToFileSystemFile(
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>> attributes) {
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>> attributes = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>>)) {
 			FileSystemFile that = this as FileSystemFile;
 			if (that != null && this.GetType() == typeof(FileSystemFile)) {
 				if ((!attributes.IsDefined || attributes.Value == that.Attributes)) {
@@ -62,12 +62,12 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return FileSystemFile.Create(
-				this.PathSegment,
-				attributes);
+				pathSegment: this.PathSegment,
+				attributes: attributes);
 		}
 		
 		public virtual FileSystemDirectory ToFileSystemDirectory(
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>> children) {
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>>)) {
 			FileSystemDirectory that = this as FileSystemDirectory;
 			if (that != null && this.GetType() == typeof(FileSystemDirectory)) {
 				if ((!children.IsDefined || children.Value == that.Children)) {
@@ -76,8 +76,8 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return FileSystemDirectory.Create(
-				this.PathSegment,
-				children);
+				pathSegment: this.PathSegment,
+				children: children);
 		}
 		
 		public Builder ToBuilder() {
@@ -135,7 +135,7 @@ namespace ImmutableObjectGraph.Tests {
 			System.String pathSegment,
 			System.Collections.Immutable.ImmutableHashSet<System.String> attributes)
 	        : base(
-				pathSegment)
+				pathSegment: pathSegment)
 	    {
 	        this.attributes = attributes;
 	        this.Validate();
@@ -143,94 +143,94 @@ namespace ImmutableObjectGraph.Tests {
 	
 	    public static FileSystemFile Create(
 			System.String pathSegment,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>> attributes) {
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>> attributes = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>>)) {
 	        return DefaultInstance.With(
-				pathSegment,
-				attributes.GetValueOrDefault(DefaultInstance.Attributes));
+				pathSegment: pathSegment,
+				attributes: attributes.GetValueOrDefault(DefaultInstance.Attributes));
 	    }
 	
 	    public System.Collections.Immutable.ImmutableHashSet<System.String> Attributes {
 	        get { return this.attributes; }
 	    }
 		
-		///// <summary>Returns a new instance with the PathSegment property set to the specified value.</summary>
-		//public new FileSystemFile WithPathSegment(System.String value) {
-		//	return (FileSystemFile)base.WithPathSegment(value);
-		//}
+		/// <summary>Returns a new instance with the PathSegment property set to the specified value.</summary>
+		public new FileSystemFile WithPathSegment(System.String value) {
+			return (FileSystemFile)base.WithPathSegment(value);
+		}
 		
-		///// <summary>Returns a new instance with the Attributes property set to the specified value.</summary>
-		//public FileSystemFile WithAttributes(System.Collections.Immutable.ImmutableHashSet<System.String> value) {
-		//	if (value == this.Attributes) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(attributes: value);
-		//}
+		/// <summary>Returns a new instance with the Attributes property set to the specified value.</summary>
+		public FileSystemFile WithAttributes(System.Collections.Immutable.ImmutableHashSet<System.String> value) {
+			if (value == this.Attributes) {
+				return this;
+			}
 		
-		///// <summary>Replaces the elements of the Attributes collection with the specified collection.</summary>
-		//public FileSystemFile WithAttributes(params System.String[] values) {
-		//	return this.With(attributes: CollectionExtensions.ResetContents(this.Attributes, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the Attributes collection with the specified collection.</summary>
-		//public FileSystemFile WithAttributes(System.Collections.Generic.IEnumerable<System.String> values) {
-		//	return this.With(attributes: CollectionExtensions.ResetContents(this.Attributes, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Attributes collection.</summary>
-		//public FileSystemFile AddAttributes(System.Collections.Generic.IEnumerable<System.String> values) {
-		//	return this.With(attributes: CollectionExtensions.AddRange(this.Attributes, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Attributes collection.</summary>
-		//public FileSystemFile AddAttributes(params System.String[] values) {
-		//	return this.With(attributes: CollectionExtensions.AddRange(this.Attributes, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the Attributes collection.</summary>
-		//public FileSystemFile AddAttributes(System.String value) {
-		//	return this.With(attributes: this.Attributes.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Attributes collection.</summary>
-		//public FileSystemFile RemoveAttributes(System.Collections.Generic.IEnumerable<System.String> values) {
-		//	return this.With(attributes: CollectionExtensions.RemoveRange(this.Attributes, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Attributes collection.</summary>
-		//public FileSystemFile RemoveAttributes(params System.String[] values) {
-		//	return this.With(attributes: CollectionExtensions.RemoveRange(this.Attributes, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the Attributes collection.</summary>
-		//public FileSystemFile RemoveAttributes(System.String value) {
-		//	return this.With(attributes: this.Attributes.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the Attributes collection.</summary>
-		//public FileSystemFile RemoveAttributes() {
-		//	return this.With(attributes: this.Attributes.Clear());
-		//}
+			return this.With(attributes: value);
+		}
+		
+		/// <summary>Replaces the elements of the Attributes collection with the specified collection.</summary>
+		public FileSystemFile WithAttributes(params System.String[] values) {
+			return this.With(attributes: CollectionExtensions.ResetContents(this.Attributes, values));
+		}
+		
+		/// <summary>Replaces the elements of the Attributes collection with the specified collection.</summary>
+		public FileSystemFile WithAttributes(System.Collections.Generic.IEnumerable<System.String> values) {
+			return this.With(attributes: CollectionExtensions.ResetContents(this.Attributes, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Attributes collection.</summary>
+		public FileSystemFile AddAttributes(System.Collections.Generic.IEnumerable<System.String> values) {
+			return this.With(attributes: CollectionExtensions.AddRange(this.Attributes, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Attributes collection.</summary>
+		public FileSystemFile AddAttributes(params System.String[] values) {
+			return this.With(attributes: CollectionExtensions.AddRange(this.Attributes, values));
+		}
+		
+		/// <summary>Adds the specified element from the Attributes collection.</summary>
+		public FileSystemFile AddAttributes(System.String value) {
+			return this.With(attributes: this.Attributes.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the Attributes collection.</summary>
+		public FileSystemFile RemoveAttributes(System.Collections.Generic.IEnumerable<System.String> values) {
+			return this.With(attributes: CollectionExtensions.RemoveRange(this.Attributes, values));
+		}
+		
+		/// <summary>Removes the specified elements from the Attributes collection.</summary>
+		public FileSystemFile RemoveAttributes(params System.String[] values) {
+			return this.With(attributes: CollectionExtensions.RemoveRange(this.Attributes, values));
+		}
+		
+		/// <summary>Removes the specified element from the Attributes collection.</summary>
+		public FileSystemFile RemoveAttributes(System.String value) {
+			return this.With(attributes: this.Attributes.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the Attributes collection.</summary>
+		public FileSystemFile RemoveAttributes() {
+			return this.With(attributes: this.Attributes.Clear());
+		}
 		
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public override FileSystemEntry With(
-			ImmutableObjectGraph.Optional<System.String> pathSegment) {
+			ImmutableObjectGraph.Optional<System.String> pathSegment = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return this.With(
-				pathSegment,
-				default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>>));
+				pathSegment: pathSegment,
+				attributes: default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>>));
 	    }
 	    
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual FileSystemFile With(
-			ImmutableObjectGraph.Optional<System.String> pathSegment,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>> attributes) {
+			ImmutableObjectGraph.Optional<System.String> pathSegment = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>> attributes = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableHashSet<System.String>>)) {
 	        if (
 				(pathSegment.IsDefined && pathSegment.Value != this.PathSegment) || 
 				(attributes.IsDefined && attributes.Value != this.Attributes)) {
 	            return new FileSystemFile(
-					pathSegment.GetValueOrDefault(this.PathSegment),
-					attributes.GetValueOrDefault(this.Attributes));
+					pathSegment: pathSegment.GetValueOrDefault(this.PathSegment),
+					attributes: attributes.GetValueOrDefault(this.Attributes));
 	        } else {
 	            return this;
 	        }
@@ -320,7 +320,7 @@ namespace ImmutableObjectGraph.Tests {
 			System.String pathSegment,
 			System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry> children)
 	        : base(
-				pathSegment)
+				pathSegment: pathSegment)
 	    {
 	        this.children = children;
 	        this.Validate();
@@ -328,94 +328,94 @@ namespace ImmutableObjectGraph.Tests {
 	
 	    public static FileSystemDirectory Create(
 			System.String pathSegment,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>> children) {
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>>)) {
 	        return DefaultInstance.With(
-				pathSegment,
-				children.GetValueOrDefault(DefaultInstance.Children));
+				pathSegment: pathSegment,
+				children: children.GetValueOrDefault(DefaultInstance.Children));
 	    }
 	
 	    public System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry> Children {
 	        get { return this.children; }
 	    }
 		
-		///// <summary>Returns a new instance with the PathSegment property set to the specified value.</summary>
-		//public new FileSystemDirectory WithPathSegment(System.String value) {
-		//	return (FileSystemDirectory)base.WithPathSegment(value);
-		//}
+		/// <summary>Returns a new instance with the PathSegment property set to the specified value.</summary>
+		public new FileSystemDirectory WithPathSegment(System.String value) {
+			return (FileSystemDirectory)base.WithPathSegment(value);
+		}
 		
-		///// <summary>Returns a new instance with the Children property set to the specified value.</summary>
-		//public FileSystemDirectory WithChildren(System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry> value) {
-		//	if (value == this.Children) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(children: value);
-		//}
+		/// <summary>Returns a new instance with the Children property set to the specified value.</summary>
+		public FileSystemDirectory WithChildren(System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry> value) {
+			if (value == this.Children) {
+				return this;
+			}
 		
-		///// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
-		//public FileSystemDirectory WithChildren(params FileSystemEntry[] values) {
-		//	return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
-		//public FileSystemDirectory WithChildren(System.Collections.Generic.IEnumerable<FileSystemEntry> values) {
-		//	return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Children collection.</summary>
-		//public FileSystemDirectory AddChildren(System.Collections.Generic.IEnumerable<FileSystemEntry> values) {
-		//	return this.With(children: CollectionExtensions.AddRange(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Children collection.</summary>
-		//public FileSystemDirectory AddChildren(params FileSystemEntry[] values) {
-		//	return this.With(children: CollectionExtensions.AddRange(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the Children collection.</summary>
-		//public FileSystemDirectory AddChildren(FileSystemEntry value) {
-		//	return this.With(children: this.Children.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Children collection.</summary>
-		//public FileSystemDirectory RemoveChildren(System.Collections.Generic.IEnumerable<FileSystemEntry> values) {
-		//	return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Children collection.</summary>
-		//public FileSystemDirectory RemoveChildren(params FileSystemEntry[] values) {
-		//	return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the Children collection.</summary>
-		//public FileSystemDirectory RemoveChildren(FileSystemEntry value) {
-		//	return this.With(children: this.Children.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the Children collection.</summary>
-		//public FileSystemDirectory RemoveChildren() {
-		//	return this.With(children: this.Children.Clear());
-		//}
+			return this.With(children: value);
+		}
+		
+		/// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
+		public FileSystemDirectory WithChildren(params FileSystemEntry[] values) {
+			return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
+		}
+		
+		/// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
+		public FileSystemDirectory WithChildren(System.Collections.Generic.IEnumerable<FileSystemEntry> values) {
+			return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Children collection.</summary>
+		public FileSystemDirectory AddChildren(System.Collections.Generic.IEnumerable<FileSystemEntry> values) {
+			return this.With(children: CollectionExtensions.AddRange(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Children collection.</summary>
+		public FileSystemDirectory AddChildren(params FileSystemEntry[] values) {
+			return this.With(children: CollectionExtensions.AddRange(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified element from the Children collection.</summary>
+		public FileSystemDirectory AddChildren(FileSystemEntry value) {
+			return this.With(children: this.Children.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the Children collection.</summary>
+		public FileSystemDirectory RemoveChildren(System.Collections.Generic.IEnumerable<FileSystemEntry> values) {
+			return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
+		}
+		
+		/// <summary>Removes the specified elements from the Children collection.</summary>
+		public FileSystemDirectory RemoveChildren(params FileSystemEntry[] values) {
+			return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
+		}
+		
+		/// <summary>Removes the specified element from the Children collection.</summary>
+		public FileSystemDirectory RemoveChildren(FileSystemEntry value) {
+			return this.With(children: this.Children.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the Children collection.</summary>
+		public FileSystemDirectory RemoveChildren() {
+			return this.With(children: this.Children.Clear());
+		}
 		
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public override FileSystemEntry With(
-			ImmutableObjectGraph.Optional<System.String> pathSegment) {
+			ImmutableObjectGraph.Optional<System.String> pathSegment = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return this.With(
-				pathSegment,
-				default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>>));
+				pathSegment: pathSegment,
+				children: default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>>));
 	    }
 	    
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual FileSystemDirectory With(
-			ImmutableObjectGraph.Optional<System.String> pathSegment,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>> children) {
+			ImmutableObjectGraph.Optional<System.String> pathSegment = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry>>)) {
 	        if (
 				(pathSegment.IsDefined && pathSegment.Value != this.PathSegment) || 
 				(children.IsDefined && children.Value != this.Children)) {
 	            return new FileSystemDirectory(
-					pathSegment.GetValueOrDefault(this.PathSegment),
-					children.GetValueOrDefault(this.Children));
+					pathSegment: pathSegment.GetValueOrDefault(this.PathSegment),
+					children: children.GetValueOrDefault(this.Children));
 	        } else {
 	            return this;
 	        }
@@ -453,24 +453,25 @@ namespace ImmutableObjectGraph.Tests {
 	        internal System.Collections.Immutable.ImmutableSortedSet<FileSystemEntry> Children { get; set; }
 	    }
 		
-		//public FileSystemDirectory ReplaceDescendent(FileSystemEntry current, FileSystemEntry /replacement)/ {
-		//	// TODO: fix this horribly inefficient algorithm.
-		//	var newChildren = this.Children.Replace(current, replacement);
-		//	if (this.Children != newChildren) {
-		//		return this.WithChildren(newChildren);
-		//	}
-		//	
-		//	foreach (var child in EnumerableV20.OfType<FileSystemDirectory>(this))
-		//	{
-		//		var newChild = child.ReplaceDescendent(current, replacement);
-		//		if (newChild != child) {
-		//			newChildren = this.Children.Replace(child, newChild);
-		//			return this.WithChildren(newChildren);
-		//		}
-		//	}
-		//		
-		//	return this;
-		//}
+		public FileSystemDirectory ReplaceDescendent(FileSystemEntry current, FileSystemEntry replacement)
+		{
+			// TODO: fix this horribly inefficient algorithm.
+			var newChildren = this.Children.Replace(current, replacement);
+			if (this.Children != newChildren) {
+				return this.WithChildren(newChildren);
+			}
+			
+			foreach (var child in EnumerableV20.OfType<FileSystemDirectory>(this))
+			{
+				var newChild = child.ReplaceDescendent(current, replacement);
+				if (newChild != child) {
+					newChildren = this.Children.Replace(child, newChild);
+					return this.WithChildren(newChildren);
+				}
+			}
+				
+			return this;
+		}
 		
 		public new Builder ToBuilder() {
 			return new Builder(this);

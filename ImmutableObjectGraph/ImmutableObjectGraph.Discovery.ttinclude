@@ -162,7 +162,7 @@ private void WriteArguments(IEnumerable<MetaType.MetaField> fields, ArgSource so
         ArgSource fieldSource = (source == ArgSource.OptionalArgumentOrTemplate && field.IsRequired) ? ArgSource.Argument : source;
         if (!firstInSequence) { Write(","); }
         WriteLine("");
-        //Write("{0}: ", field.NameCamelCase); // named arguments are important because the order can vary (due to required fields, etc.)
+        Write("{0}: ", field.NameCamelCase); // named arguments are important because the order can vary (due to required fields, etc.)
 
         switch (fieldSource) {
             case ArgSource.Property:
@@ -212,9 +212,9 @@ private void WriteParameters(IEnumerable<MetaType.MetaField> fields, ParameterSt
         Write(fieldOptional ? field.OptionalTypeName : field.TypeName);
         Write(" ");
         Write(field.NameCamelCase);
-        //if (fieldOptional) {
-        //    Write(" = default(" + field.OptionalTypeName + ")");
-        //}
+        if (fieldOptional) {
+            Write(" = default(" + field.OptionalTypeName + ")");
+        }
 
         firstInSequence = false;
     }

@@ -45,11 +45,11 @@ namespace Demo {
 	    }
 	
 	    public static Fruit Create(
-			ImmutableObjectGraph.Optional<System.String> color,
-			ImmutableObjectGraph.Optional<System.Int32> skinThickness) {
+			ImmutableObjectGraph.Optional<System.String> color = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Int32> skinThickness = default(ImmutableObjectGraph.Optional<System.Int32>)) {
 	        return DefaultInstance.With(
-				color.GetValueOrDefault(DefaultInstance.Color),
-				skinThickness.GetValueOrDefault(DefaultInstance.SkinThickness));
+				color: color.GetValueOrDefault(DefaultInstance.Color),
+				skinThickness: skinThickness.GetValueOrDefault(DefaultInstance.SkinThickness));
 	    }
 	
 	    public System.String Color {
@@ -60,34 +60,34 @@ namespace Demo {
 	        get { return this.skinThickness; }
 	    }
 		
-		///// <summary>Returns a new instance with the Color property set to the specified value.</summary>
-		//public Fruit WithColor(System.String value) {
-		//	if (value == this.Color) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(color: value);
-		//}
+		/// <summary>Returns a new instance with the Color property set to the specified value.</summary>
+		public Fruit WithColor(System.String value) {
+			if (value == this.Color) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the SkinThickness property set to the specified value.</summary>
-		//public Fruit WithSkinThickness(System.Int32 value) {
-		//	if (value == this.SkinThickness) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(skinThickness: value);
-		//}
+			return this.With(color: value);
+		}
+		
+		/// <summary>Returns a new instance with the SkinThickness property set to the specified value.</summary>
+		public Fruit WithSkinThickness(System.Int32 value) {
+			if (value == this.SkinThickness) {
+				return this;
+			}
+		
+			return this.With(skinThickness: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual Fruit With(
-			ImmutableObjectGraph.Optional<System.String> color,
-			ImmutableObjectGraph.Optional<System.Int32> skinThickness) {
+			ImmutableObjectGraph.Optional<System.String> color = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Int32> skinThickness = default(ImmutableObjectGraph.Optional<System.Int32>)) {
 	        if (
 				(color.IsDefined && color.Value != this.Color) || 
 				(skinThickness.IsDefined && skinThickness.Value != this.SkinThickness)) {
 	            return new Fruit(
-					color.GetValueOrDefault(this.Color),
-					skinThickness.GetValueOrDefault(this.SkinThickness));
+					color: color.GetValueOrDefault(this.Color),
+					skinThickness: skinThickness.GetValueOrDefault(this.SkinThickness));
 	        } else {
 	            return this;
 	        }

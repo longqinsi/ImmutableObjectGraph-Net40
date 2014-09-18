@@ -39,22 +39,22 @@ namespace ImmutableObjectGraph.Tests {
 	        get { return this.localName; }
 	    }
 		
-		///// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
-		//public XmlNode WithLocalName(System.String value) {
-		//	if (value == this.LocalName) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(localName: value);
-		//}
+		/// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
+		public XmlNode WithLocalName(System.String value) {
+			if (value == this.LocalName) {
+				return this;
+			}
+		
+			return this.With(localName: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public abstract XmlNode With(
-			ImmutableObjectGraph.Optional<System.String> localName);
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>));
 		
 		public virtual XmlElement ToXmlElement(
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children) {
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>)) {
 			XmlElement that = this as XmlElement;
 			if (that != null && this.GetType() == typeof(XmlElement)) {
 				if ((!namespaceName.IsDefined || namespaceName.Value == that.NamespaceName) && 
@@ -64,15 +64,15 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return XmlElement.Create(
-				this.LocalName,
-				namespaceName,
-				children);
+				localName: this.LocalName,
+				namespaceName: namespaceName,
+				children: children);
 		}
 		
 		public virtual XmlElementWithContent ToXmlElementWithContent(
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children,
-			ImmutableObjectGraph.Optional<System.String> content) {
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>),
+			ImmutableObjectGraph.Optional<System.String> content = default(ImmutableObjectGraph.Optional<System.String>)) {
 			XmlElementWithContent that = this as XmlElementWithContent;
 			if (that != null && this.GetType() == typeof(XmlElementWithContent)) {
 				if ((!namespaceName.IsDefined || namespaceName.Value == that.NamespaceName) && 
@@ -83,15 +83,15 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return XmlElementWithContent.Create(
-				this.LocalName,
-				namespaceName,
-				children,
-				content);
+				localName: this.LocalName,
+				namespaceName: namespaceName,
+				children: children,
+				content: content);
 		}
 		
 		public virtual XmlAttribute ToXmlAttribute(
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.String> value) {
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> value = default(ImmutableObjectGraph.Optional<System.String>)) {
 			XmlAttribute that = this as XmlAttribute;
 			if (that != null && this.GetType() == typeof(XmlAttribute)) {
 				if ((!namespaceName.IsDefined || namespaceName.Value == that.NamespaceName) && 
@@ -101,9 +101,9 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return XmlAttribute.Create(
-				this.LocalName,
-				namespaceName,
-				value);
+				localName: this.LocalName,
+				namespaceName: namespaceName,
+				value: value);
 		}
 		
 		public Builder ToBuilder() {
@@ -166,7 +166,7 @@ namespace ImmutableObjectGraph.Tests {
 			System.String namespaceName,
 			System.Collections.Immutable.ImmutableList<XmlNode> children)
 	        : base(
-				localName)
+				localName: localName)
 	    {
 	        this.namespaceName = namespaceName;
 	        this.children = children;
@@ -174,13 +174,13 @@ namespace ImmutableObjectGraph.Tests {
 	    }
 	
 	    public static XmlElement Create(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>)) {
 	        return DefaultInstance.With(
-				localName.GetValueOrDefault(DefaultInstance.LocalName),
-				namespaceName.GetValueOrDefault(DefaultInstance.NamespaceName),
-				children.GetValueOrDefault(DefaultInstance.Children));
+				localName: localName.GetValueOrDefault(DefaultInstance.LocalName),
+				namespaceName: namespaceName.GetValueOrDefault(DefaultInstance.NamespaceName),
+				children: children.GetValueOrDefault(DefaultInstance.Children));
 	    }
 	
 	    public System.String NamespaceName {
@@ -191,97 +191,97 @@ namespace ImmutableObjectGraph.Tests {
 	        get { return this.children; }
 	    }
 		
-		///// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
-		//public new XmlElement WithLocalName(System.String value) {
-		//	return (XmlElement)base.WithLocalName(value);
-		//}
+		/// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
+		public new XmlElement WithLocalName(System.String value) {
+			return (XmlElement)base.WithLocalName(value);
+		}
 		
-		///// <summary>Returns a new instance with the NamespaceName property set to the specified value.</summary>
-		//public XmlElement WithNamespaceName(System.String value) {
-		//	if (value == this.NamespaceName) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(namespaceName: value);
-		//}
+		/// <summary>Returns a new instance with the NamespaceName property set to the specified value.</summary>
+		public XmlElement WithNamespaceName(System.String value) {
+			if (value == this.NamespaceName) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the Children property set to the specified value.</summary>
-		//public XmlElement WithChildren(System.Collections.Immutable.ImmutableList<XmlNode> value) {
-		//	if (value == this.Children) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(children: value);
-		//}
+			return this.With(namespaceName: value);
+		}
 		
-		///// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
-		//public XmlElement WithChildren(params XmlNode[] values) {
-		//	return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
-		//public XmlElement WithChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
-		//	return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Children collection.</summary>
-		//public XmlElement AddChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
-		//	return this.With(children: CollectionExtensions.AddRange(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Children collection.</summary>
-		//public XmlElement AddChildren(params XmlNode[] values) {
-		//	return this.With(children: CollectionExtensions.AddRange(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the Children collection.</summary>
-		//public XmlElement AddChildren(XmlNode value) {
-		//	return this.With(children: this.Children.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Children collection.</summary>
-		//public XmlElement RemoveChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
-		//	return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Children collection.</summary>
-		//public XmlElement RemoveChildren(params XmlNode[] values) {
-		//	return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the Children collection.</summary>
-		//public XmlElement RemoveChildren(XmlNode value) {
-		//	return this.With(children: this.Children.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the Children collection.</summary>
-		//public XmlElement RemoveChildren() {
-		//	return this.With(children: this.Children.Clear());
-		//}
+		/// <summary>Returns a new instance with the Children property set to the specified value.</summary>
+		public XmlElement WithChildren(System.Collections.Immutable.ImmutableList<XmlNode> value) {
+			if (value == this.Children) {
+				return this;
+			}
+		
+			return this.With(children: value);
+		}
+		
+		/// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
+		public XmlElement WithChildren(params XmlNode[] values) {
+			return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
+		}
+		
+		/// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
+		public XmlElement WithChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
+			return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Children collection.</summary>
+		public XmlElement AddChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
+			return this.With(children: CollectionExtensions.AddRange(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Children collection.</summary>
+		public XmlElement AddChildren(params XmlNode[] values) {
+			return this.With(children: CollectionExtensions.AddRange(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified element from the Children collection.</summary>
+		public XmlElement AddChildren(XmlNode value) {
+			return this.With(children: this.Children.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the Children collection.</summary>
+		public XmlElement RemoveChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
+			return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
+		}
+		
+		/// <summary>Removes the specified elements from the Children collection.</summary>
+		public XmlElement RemoveChildren(params XmlNode[] values) {
+			return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
+		}
+		
+		/// <summary>Removes the specified element from the Children collection.</summary>
+		public XmlElement RemoveChildren(XmlNode value) {
+			return this.With(children: this.Children.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the Children collection.</summary>
+		public XmlElement RemoveChildren() {
+			return this.With(children: this.Children.Clear());
+		}
 		
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public override XmlNode With(
-			ImmutableObjectGraph.Optional<System.String> localName) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return this.With(
-				localName,
-				default(ImmutableObjectGraph.Optional<System.String>),
-				default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>));
+				localName: localName,
+				namespaceName: default(ImmutableObjectGraph.Optional<System.String>),
+				children: default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>));
 	    }
 	    
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual XmlElement With(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>)) {
 	        if (
 				(localName.IsDefined && localName.Value != this.LocalName) || 
 				(namespaceName.IsDefined && namespaceName.Value != this.NamespaceName) || 
 				(children.IsDefined && children.Value != this.Children)) {
 	            return new XmlElement(
-					localName.GetValueOrDefault(this.LocalName),
-					namespaceName.GetValueOrDefault(this.NamespaceName),
-					children.GetValueOrDefault(this.Children));
+					localName: localName.GetValueOrDefault(this.LocalName),
+					namespaceName: namespaceName.GetValueOrDefault(this.NamespaceName),
+					children: children.GetValueOrDefault(this.Children));
 	        } else {
 	            return this;
 	        }
@@ -322,27 +322,28 @@ namespace ImmutableObjectGraph.Tests {
 	        internal System.Collections.Immutable.ImmutableList<XmlNode> Children { get; set; }
 	    }
 		
-		//public XmlElement ReplaceDescendent(XmlNode current, XmlNode /replacement)/ {
-		//	// TODO: fix this horribly inefficient algorithm.
-		//	var newChildren = this.Children.Replace(current, replacement);
-		//	if (this.Children != newChildren) {
-		//		return this.WithChildren(newChildren);
-		//	}
-		//	
-		//	foreach (var child in EnumerableV20.OfType<XmlElement>(this))
-		//	{
-		//		var newChild = child.ReplaceDescendent(current, replacement);
-		//		if (newChild != child) {
-		//			newChildren = this.Children.Replace(child, newChild);
-		//			return this.WithChildren(newChildren);
-		//		}
-		//	}
-		//		
-		//	return this;
-		//}
+		public XmlElement ReplaceDescendent(XmlNode current, XmlNode replacement)
+		{
+			// TODO: fix this horribly inefficient algorithm.
+			var newChildren = this.Children.Replace(current, replacement);
+			if (this.Children != newChildren) {
+				return this.WithChildren(newChildren);
+			}
+			
+			foreach (var child in EnumerableV20.OfType<XmlElement>(this))
+			{
+				var newChild = child.ReplaceDescendent(current, replacement);
+				if (newChild != child) {
+					newChildren = this.Children.Replace(child, newChild);
+					return this.WithChildren(newChildren);
+				}
+			}
+				
+			return this;
+		}
 		
 		public virtual XmlElementWithContent ToXmlElementWithContent(
-			ImmutableObjectGraph.Optional<System.String> content) {
+			ImmutableObjectGraph.Optional<System.String> content = default(ImmutableObjectGraph.Optional<System.String>)) {
 			XmlElementWithContent that = this as XmlElementWithContent;
 			if (that != null && this.GetType() == typeof(XmlElementWithContent)) {
 				if ((!content.IsDefined || content.Value == that.Content)) {
@@ -351,20 +352,20 @@ namespace ImmutableObjectGraph.Tests {
 			}
 		
 			return XmlElementWithContent.Create(
-				this.LocalName,
-				this.NamespaceName,
-				this.Children,
-				content);
+				localName: this.LocalName,
+				namespaceName: this.NamespaceName,
+				children: this.Children,
+				content: content);
 		}
 		
 		public override XmlElementWithContent ToXmlElementWithContent(
-				ImmutableObjectGraph.Optional<System.String> namespaceName,
-				ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children,
-				ImmutableObjectGraph.Optional<System.String> content) {
+				ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+				ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>),
+				ImmutableObjectGraph.Optional<System.String> content = default(ImmutableObjectGraph.Optional<System.String>)) {
 			return base.ToXmlElementWithContent(
-					namespaceName.GetValueOrDefault(this.NamespaceName),
-					children.GetValueOrDefault(this.Children),
-					content);
+					namespaceName: namespaceName.GetValueOrDefault(this.NamespaceName),
+					children: children.GetValueOrDefault(this.Children),
+					content: content);
 		}
 		
 		public new Builder ToBuilder() {
@@ -444,128 +445,128 @@ namespace ImmutableObjectGraph.Tests {
 			System.Collections.Immutable.ImmutableList<XmlNode> children,
 			System.String content)
 	        : base(
-				localName,
-				namespaceName,
-				children)
+				localName: localName,
+				namespaceName: namespaceName,
+				children: children)
 	    {
 	        this.content = content;
 	        this.Validate();
 	    }
 	
 	    public static XmlElementWithContent Create(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children,
-			ImmutableObjectGraph.Optional<System.String> content) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>),
+			ImmutableObjectGraph.Optional<System.String> content = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return DefaultInstance.With(
-				localName.GetValueOrDefault(DefaultInstance.LocalName),
-				namespaceName.GetValueOrDefault(DefaultInstance.NamespaceName),
-				children.GetValueOrDefault(DefaultInstance.Children),
-				content.GetValueOrDefault(DefaultInstance.Content));
+				localName: localName.GetValueOrDefault(DefaultInstance.LocalName),
+				namespaceName: namespaceName.GetValueOrDefault(DefaultInstance.NamespaceName),
+				children: children.GetValueOrDefault(DefaultInstance.Children),
+				content: content.GetValueOrDefault(DefaultInstance.Content));
 	    }
 	
 	    public System.String Content {
 	        get { return this.content; }
 	    }
 		
-		///// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
-		//public new XmlElementWithContent WithLocalName(System.String value) {
-		//	return (XmlElementWithContent)base.WithLocalName(value);
-		//}
+		/// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
+		public new XmlElementWithContent WithLocalName(System.String value) {
+			return (XmlElementWithContent)base.WithLocalName(value);
+		}
 		
-		///// <summary>Returns a new instance with the NamespaceName property set to the specified value.</summary>
-		//public new XmlElementWithContent WithNamespaceName(System.String value) {
-		//	return (XmlElementWithContent)base.WithNamespaceName(value);
-		//}
+		/// <summary>Returns a new instance with the NamespaceName property set to the specified value.</summary>
+		public new XmlElementWithContent WithNamespaceName(System.String value) {
+			return (XmlElementWithContent)base.WithNamespaceName(value);
+		}
 		
-		///// <summary>Returns a new instance with the Children property set to the specified value.</summary>
-		//public new XmlElementWithContent WithChildren(System.Collections.Immutable.ImmutableList<XmlNode> value) {
-		//	return (XmlElementWithContent)base.WithChildren(value);
-		//}
+		/// <summary>Returns a new instance with the Children property set to the specified value.</summary>
+		public new XmlElementWithContent WithChildren(System.Collections.Immutable.ImmutableList<XmlNode> value) {
+			return (XmlElementWithContent)base.WithChildren(value);
+		}
 		
-		///// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
-		//public XmlElementWithContent WithChildren(params XmlNode[] values) {
-		//	return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
-		//public XmlElementWithContent WithChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
-		//	return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Children collection.</summary>
-		//public XmlElementWithContent AddChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
-		//	return this.With(children: CollectionExtensions.AddRange(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Children collection.</summary>
-		//public XmlElementWithContent AddChildren(params XmlNode[] values) {
-		//	return this.With(children: CollectionExtensions.AddRange(this.Children, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the Children collection.</summary>
-		//public XmlElementWithContent AddChildren(XmlNode value) {
-		//	return this.With(children: this.Children.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Children collection.</summary>
-		//public XmlElementWithContent RemoveChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
-		//	return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Children collection.</summary>
-		//public XmlElementWithContent RemoveChildren(params XmlNode[] values) {
-		//	return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the Children collection.</summary>
-		//public XmlElementWithContent RemoveChildren(XmlNode value) {
-		//	return this.With(children: this.Children.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the Children collection.</summary>
-		//public XmlElementWithContent RemoveChildren() {
-		//	return this.With(children: this.Children.Clear());
-		//}
+		/// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
+		public XmlElementWithContent WithChildren(params XmlNode[] values) {
+			return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
+		}
+		
+		/// <summary>Replaces the elements of the Children collection with the specified collection.</summary>
+		public XmlElementWithContent WithChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
+			return this.With(children: CollectionExtensions.ResetContents(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Children collection.</summary>
+		public XmlElementWithContent AddChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
+			return this.With(children: CollectionExtensions.AddRange(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Children collection.</summary>
+		public XmlElementWithContent AddChildren(params XmlNode[] values) {
+			return this.With(children: CollectionExtensions.AddRange(this.Children, values));
+		}
+		
+		/// <summary>Adds the specified element from the Children collection.</summary>
+		public XmlElementWithContent AddChildren(XmlNode value) {
+			return this.With(children: this.Children.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the Children collection.</summary>
+		public XmlElementWithContent RemoveChildren(System.Collections.Generic.IEnumerable<XmlNode> values) {
+			return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
+		}
+		
+		/// <summary>Removes the specified elements from the Children collection.</summary>
+		public XmlElementWithContent RemoveChildren(params XmlNode[] values) {
+			return this.With(children: CollectionExtensions.RemoveRange(this.Children, values));
+		}
+		
+		/// <summary>Removes the specified element from the Children collection.</summary>
+		public XmlElementWithContent RemoveChildren(XmlNode value) {
+			return this.With(children: this.Children.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the Children collection.</summary>
+		public XmlElementWithContent RemoveChildren() {
+			return this.With(children: this.Children.Clear());
+		}
 		
 		
-		///// <summary>Returns a new instance with the Content property set to the specified value.</summary>
-		//public XmlElementWithContent WithContent(System.String value) {
-		//	if (value == this.Content) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(content: value);
-		//}
+		/// <summary>Returns a new instance with the Content property set to the specified value.</summary>
+		public XmlElementWithContent WithContent(System.String value) {
+			if (value == this.Content) {
+				return this;
+			}
+		
+			return this.With(content: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public override XmlElement With(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>)) {
 	        return this.With(
-				localName,
-				namespaceName,
-				children,
-				default(ImmutableObjectGraph.Optional<System.String>));
+				localName: localName,
+				namespaceName: namespaceName,
+				children: children,
+				content: default(ImmutableObjectGraph.Optional<System.String>));
 	    }
 	    
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual XmlElementWithContent With(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children,
-			ImmutableObjectGraph.Optional<System.String> content) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>> children = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<XmlNode>>),
+			ImmutableObjectGraph.Optional<System.String> content = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        if (
 				(localName.IsDefined && localName.Value != this.LocalName) || 
 				(namespaceName.IsDefined && namespaceName.Value != this.NamespaceName) || 
 				(children.IsDefined && children.Value != this.Children) || 
 				(content.IsDefined && content.Value != this.Content)) {
 	            return new XmlElementWithContent(
-					localName.GetValueOrDefault(this.LocalName),
-					namespaceName.GetValueOrDefault(this.NamespaceName),
-					children.GetValueOrDefault(this.Children),
-					content.GetValueOrDefault(this.Content));
+					localName: localName.GetValueOrDefault(this.LocalName),
+					namespaceName: namespaceName.GetValueOrDefault(this.NamespaceName),
+					children: children.GetValueOrDefault(this.Children),
+					content: content.GetValueOrDefault(this.Content));
 	        } else {
 	            return this;
 	        }
@@ -603,9 +604,9 @@ namespace ImmutableObjectGraph.Tests {
 		
 		public XmlElement ToXmlElement() {
 			return XmlElement.Create(
-				this.LocalName,
-				this.NamespaceName,
-				this.Children);
+				localName: this.LocalName,
+				namespaceName: this.NamespaceName,
+				children: this.Children);
 		}
 		
 		public new Builder ToBuilder() {
@@ -672,7 +673,7 @@ namespace ImmutableObjectGraph.Tests {
 			System.String namespaceName,
 			System.String value)
 	        : base(
-				localName)
+				localName: localName)
 	    {
 	        this.namespaceName = namespaceName;
 	        this.value = value;
@@ -680,13 +681,13 @@ namespace ImmutableObjectGraph.Tests {
 	    }
 	
 	    public static XmlAttribute Create(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.String> value) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> value = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return DefaultInstance.With(
-				localName.GetValueOrDefault(DefaultInstance.LocalName),
-				namespaceName.GetValueOrDefault(DefaultInstance.NamespaceName),
-				value.GetValueOrDefault(DefaultInstance.Value));
+				localName: localName.GetValueOrDefault(DefaultInstance.LocalName),
+				namespaceName: namespaceName.GetValueOrDefault(DefaultInstance.NamespaceName),
+				value: value.GetValueOrDefault(DefaultInstance.Value));
 	    }
 	
 	    public System.String NamespaceName {
@@ -697,51 +698,51 @@ namespace ImmutableObjectGraph.Tests {
 	        get { return this.value; }
 	    }
 		
-		///// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
-		//public new XmlAttribute WithLocalName(System.String value) {
-		//	return (XmlAttribute)base.WithLocalName(value);
-		//}
+		/// <summary>Returns a new instance with the LocalName property set to the specified value.</summary>
+		public new XmlAttribute WithLocalName(System.String value) {
+			return (XmlAttribute)base.WithLocalName(value);
+		}
 		
-		///// <summary>Returns a new instance with the NamespaceName property set to the specified value.</summary>
-		//public XmlAttribute WithNamespaceName(System.String value) {
-		//	if (value == this.NamespaceName) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(namespaceName: value);
-		//}
+		/// <summary>Returns a new instance with the NamespaceName property set to the specified value.</summary>
+		public XmlAttribute WithNamespaceName(System.String value) {
+			if (value == this.NamespaceName) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the Value property set to the specified value.</summary>
-		//public XmlAttribute WithValue(System.String value) {
-		//	if (value == this.Value) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(value: value);
-		//}
+			return this.With(namespaceName: value);
+		}
+		
+		/// <summary>Returns a new instance with the Value property set to the specified value.</summary>
+		public XmlAttribute WithValue(System.String value) {
+			if (value == this.Value) {
+				return this;
+			}
+		
+			return this.With(value: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public override XmlNode With(
-			ImmutableObjectGraph.Optional<System.String> localName) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return this.With(
-				localName,
-				default(ImmutableObjectGraph.Optional<System.String>),
-				default(ImmutableObjectGraph.Optional<System.String>));
+				localName: localName,
+				namespaceName: default(ImmutableObjectGraph.Optional<System.String>),
+				value: default(ImmutableObjectGraph.Optional<System.String>));
 	    }
 	    
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual XmlAttribute With(
-			ImmutableObjectGraph.Optional<System.String> localName,
-			ImmutableObjectGraph.Optional<System.String> namespaceName,
-			ImmutableObjectGraph.Optional<System.String> value) {
+			ImmutableObjectGraph.Optional<System.String> localName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> namespaceName = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> value = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        if (
 				(localName.IsDefined && localName.Value != this.LocalName) || 
 				(namespaceName.IsDefined && namespaceName.Value != this.NamespaceName) || 
 				(value.IsDefined && value.Value != this.Value)) {
 	            return new XmlAttribute(
-					localName.GetValueOrDefault(this.LocalName),
-					namespaceName.GetValueOrDefault(this.NamespaceName),
-					value.GetValueOrDefault(this.Value));
+					localName: localName.GetValueOrDefault(this.LocalName),
+					namespaceName: namespaceName.GetValueOrDefault(this.NamespaceName),
+					value: value.GetValueOrDefault(this.Value));
 	        } else {
 	            return this;
 	        }

@@ -69,19 +69,19 @@ namespace Demo {
 	    }
 	
 	    public static Message Create(
-			ImmutableObjectGraph.Optional<Contact> author,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> to,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> cc,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> bcc,
-			ImmutableObjectGraph.Optional<System.String> subject,
-			ImmutableObjectGraph.Optional<System.String> body) {
+			ImmutableObjectGraph.Optional<Contact> author = default(ImmutableObjectGraph.Optional<Contact>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> to = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> cc = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> bcc = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>>),
+			ImmutableObjectGraph.Optional<System.String> subject = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> body = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return DefaultInstance.With(
-				author.GetValueOrDefault(DefaultInstance.Author),
-				to.GetValueOrDefault(DefaultInstance.To),
-				cc.GetValueOrDefault(DefaultInstance.Cc),
-				bcc.GetValueOrDefault(DefaultInstance.Bcc),
-				subject.GetValueOrDefault(DefaultInstance.Subject),
-				body.GetValueOrDefault(DefaultInstance.Body));
+				author: author.GetValueOrDefault(DefaultInstance.Author),
+				to: to.GetValueOrDefault(DefaultInstance.To),
+				cc: cc.GetValueOrDefault(DefaultInstance.Cc),
+				bcc: bcc.GetValueOrDefault(DefaultInstance.Bcc),
+				subject: subject.GetValueOrDefault(DefaultInstance.Subject),
+				body: body.GetValueOrDefault(DefaultInstance.Body));
 	    }
 	
 	    public Contact Author {
@@ -108,206 +108,206 @@ namespace Demo {
 	        get { return this.body; }
 	    }
 		
-		///// <summary>Returns a new instance with the Author property set to the specified value.</summary>
-		//public Message WithAuthor(Contact value) {
-		//	if (value == this.Author) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(author: value);
-		//}
+		/// <summary>Returns a new instance with the Author property set to the specified value.</summary>
+		public Message WithAuthor(Contact value) {
+			if (value == this.Author) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the To property set to the specified value.</summary>
-		//public Message WithTo(System.Collections.Immutable.ImmutableList<Contact> value) {
-		//	if (value == this.To) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(to: value);
-		//}
+			return this.With(author: value);
+		}
 		
-		///// <summary>Replaces the elements of the To collection with the specified collection.</summary>
-		//public Message WithTo(params Contact[] values) {
-		//	return this.With(to: CollectionExtensions.ResetContents(this.To, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the To collection with the specified collection.</summary>
-		//public Message WithTo(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(to: CollectionExtensions.ResetContents(this.To, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the To collection.</summary>
-		//public Message AddTo(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(to: CollectionExtensions.AddRange(this.To, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the To collection.</summary>
-		//public Message AddTo(params Contact[] values) {
-		//	return this.With(to: CollectionExtensions.AddRange(this.To, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the To collection.</summary>
-		//public Message AddTo(Contact value) {
-		//	return this.With(to: this.To.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the To collection.</summary>
-		//public Message RemoveTo(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(to: CollectionExtensions.RemoveRange(this.To, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the To collection.</summary>
-		//public Message RemoveTo(params Contact[] values) {
-		//	return this.With(to: CollectionExtensions.RemoveRange(this.To, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the To collection.</summary>
-		//public Message RemoveTo(Contact value) {
-		//	return this.With(to: this.To.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the To collection.</summary>
-		//public Message RemoveTo() {
-		//	return this.With(to: this.To.Clear());
-		//}
+		/// <summary>Returns a new instance with the To property set to the specified value.</summary>
+		public Message WithTo(System.Collections.Immutable.ImmutableList<Contact> value) {
+			if (value == this.To) {
+				return this;
+			}
 		
+			return this.With(to: value);
+		}
 		
-		///// <summary>Returns a new instance with the Cc property set to the specified value.</summary>
-		//public Message WithCc(System.Collections.Immutable.ImmutableList<Contact> value) {
-		//	if (value == this.Cc) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(cc: value);
-		//}
+		/// <summary>Replaces the elements of the To collection with the specified collection.</summary>
+		public Message WithTo(params Contact[] values) {
+			return this.With(to: CollectionExtensions.ResetContents(this.To, values));
+		}
 		
-		///// <summary>Replaces the elements of the Cc collection with the specified collection.</summary>
-		//public Message WithCc(params Contact[] values) {
-		//	return this.With(cc: CollectionExtensions.ResetContents(this.Cc, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the Cc collection with the specified collection.</summary>
-		//public Message WithCc(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(cc: CollectionExtensions.ResetContents(this.Cc, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Cc collection.</summary>
-		//public Message AddCc(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(cc: CollectionExtensions.AddRange(this.Cc, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Cc collection.</summary>
-		//public Message AddCc(params Contact[] values) {
-		//	return this.With(cc: CollectionExtensions.AddRange(this.Cc, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the Cc collection.</summary>
-		//public Message AddCc(Contact value) {
-		//	return this.With(cc: this.Cc.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Cc collection.</summary>
-		//public Message RemoveCc(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(cc: CollectionExtensions.RemoveRange(this.Cc, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Cc collection.</summary>
-		//public Message RemoveCc(params Contact[] values) {
-		//	return this.With(cc: CollectionExtensions.RemoveRange(this.Cc, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the Cc collection.</summary>
-		//public Message RemoveCc(Contact value) {
-		//	return this.With(cc: this.Cc.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the Cc collection.</summary>
-		//public Message RemoveCc() {
-		//	return this.With(cc: this.Cc.Clear());
-		//}
+		/// <summary>Replaces the elements of the To collection with the specified collection.</summary>
+		public Message WithTo(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(to: CollectionExtensions.ResetContents(this.To, values));
+		}
+		
+		/// <summary>Adds the specified elements from the To collection.</summary>
+		public Message AddTo(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(to: CollectionExtensions.AddRange(this.To, values));
+		}
+		
+		/// <summary>Adds the specified elements from the To collection.</summary>
+		public Message AddTo(params Contact[] values) {
+			return this.With(to: CollectionExtensions.AddRange(this.To, values));
+		}
+		
+		/// <summary>Adds the specified element from the To collection.</summary>
+		public Message AddTo(Contact value) {
+			return this.With(to: this.To.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the To collection.</summary>
+		public Message RemoveTo(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(to: CollectionExtensions.RemoveRange(this.To, values));
+		}
+		
+		/// <summary>Removes the specified elements from the To collection.</summary>
+		public Message RemoveTo(params Contact[] values) {
+			return this.With(to: CollectionExtensions.RemoveRange(this.To, values));
+		}
+		
+		/// <summary>Removes the specified element from the To collection.</summary>
+		public Message RemoveTo(Contact value) {
+			return this.With(to: this.To.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the To collection.</summary>
+		public Message RemoveTo() {
+			return this.With(to: this.To.Clear());
+		}
 		
 		
-		///// <summary>Returns a new instance with the Bcc property set to the specified value.</summary>
-		//public Message WithBcc(System.Collections.Immutable.ImmutableList<Contact> value) {
-		//	if (value == this.Bcc) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(bcc: value);
-		//}
+		/// <summary>Returns a new instance with the Cc property set to the specified value.</summary>
+		public Message WithCc(System.Collections.Immutable.ImmutableList<Contact> value) {
+			if (value == this.Cc) {
+				return this;
+			}
 		
-		///// <summary>Replaces the elements of the Bcc collection with the specified collection.</summary>
-		//public Message WithBcc(params Contact[] values) {
-		//	return this.With(bcc: CollectionExtensions.ResetContents(this.Bcc, values));
-		//}
-		//
-		///// <summary>Replaces the elements of the Bcc collection with the specified collection.</summary>
-		//public Message WithBcc(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(bcc: CollectionExtensions.ResetContents(this.Bcc, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Bcc collection.</summary>
-		//public Message AddBcc(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(bcc: CollectionExtensions.AddRange(this.Bcc, values));
-		//}
-		//
-		///// <summary>Adds the specified elements from the Bcc collection.</summary>
-		//public Message AddBcc(params Contact[] values) {
-		//	return this.With(bcc: CollectionExtensions.AddRange(this.Bcc, values));
-		//}
-		//
-		///// <summary>Adds the specified element from the Bcc collection.</summary>
-		//public Message AddBcc(Contact value) {
-		//	return this.With(bcc: this.Bcc.Add(value));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Bcc collection.</summary>
-		//public Message RemoveBcc(System.Collections.Generic.IEnumerable<Contact> values) {
-		//	return this.With(bcc: CollectionExtensions.RemoveRange(this.Bcc, values));
-		//}
-		//
-		///// <summary>Removes the specified elements from the Bcc collection.</summary>
-		//public Message RemoveBcc(params Contact[] values) {
-		//	return this.With(bcc: CollectionExtensions.RemoveRange(this.Bcc, values));
-		//}
-		//
-		///// <summary>Removes the specified element from the Bcc collection.</summary>
-		//public Message RemoveBcc(Contact value) {
-		//	return this.With(bcc: this.Bcc.Remove(value));
-		//}
-		//
-		///// <summary>Clears all elements from the Bcc collection.</summary>
-		//public Message RemoveBcc() {
-		//	return this.With(bcc: this.Bcc.Clear());
-		//}
+			return this.With(cc: value);
+		}
+		
+		/// <summary>Replaces the elements of the Cc collection with the specified collection.</summary>
+		public Message WithCc(params Contact[] values) {
+			return this.With(cc: CollectionExtensions.ResetContents(this.Cc, values));
+		}
+		
+		/// <summary>Replaces the elements of the Cc collection with the specified collection.</summary>
+		public Message WithCc(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(cc: CollectionExtensions.ResetContents(this.Cc, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Cc collection.</summary>
+		public Message AddCc(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(cc: CollectionExtensions.AddRange(this.Cc, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Cc collection.</summary>
+		public Message AddCc(params Contact[] values) {
+			return this.With(cc: CollectionExtensions.AddRange(this.Cc, values));
+		}
+		
+		/// <summary>Adds the specified element from the Cc collection.</summary>
+		public Message AddCc(Contact value) {
+			return this.With(cc: this.Cc.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the Cc collection.</summary>
+		public Message RemoveCc(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(cc: CollectionExtensions.RemoveRange(this.Cc, values));
+		}
+		
+		/// <summary>Removes the specified elements from the Cc collection.</summary>
+		public Message RemoveCc(params Contact[] values) {
+			return this.With(cc: CollectionExtensions.RemoveRange(this.Cc, values));
+		}
+		
+		/// <summary>Removes the specified element from the Cc collection.</summary>
+		public Message RemoveCc(Contact value) {
+			return this.With(cc: this.Cc.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the Cc collection.</summary>
+		public Message RemoveCc() {
+			return this.With(cc: this.Cc.Clear());
+		}
 		
 		
-		///// <summary>Returns a new instance with the Subject property set to the specified value.</summary>
-		//public Message WithSubject(System.String value) {
-		//	if (value == this.Subject) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(subject: value);
-		//}
+		/// <summary>Returns a new instance with the Bcc property set to the specified value.</summary>
+		public Message WithBcc(System.Collections.Immutable.ImmutableList<Contact> value) {
+			if (value == this.Bcc) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the Body property set to the specified value.</summary>
-		//public Message WithBody(System.String value) {
-		//	if (value == this.Body) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(body: value);
-		//}
+			return this.With(bcc: value);
+		}
+		
+		/// <summary>Replaces the elements of the Bcc collection with the specified collection.</summary>
+		public Message WithBcc(params Contact[] values) {
+			return this.With(bcc: CollectionExtensions.ResetContents(this.Bcc, values));
+		}
+		
+		/// <summary>Replaces the elements of the Bcc collection with the specified collection.</summary>
+		public Message WithBcc(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(bcc: CollectionExtensions.ResetContents(this.Bcc, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Bcc collection.</summary>
+		public Message AddBcc(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(bcc: CollectionExtensions.AddRange(this.Bcc, values));
+		}
+		
+		/// <summary>Adds the specified elements from the Bcc collection.</summary>
+		public Message AddBcc(params Contact[] values) {
+			return this.With(bcc: CollectionExtensions.AddRange(this.Bcc, values));
+		}
+		
+		/// <summary>Adds the specified element from the Bcc collection.</summary>
+		public Message AddBcc(Contact value) {
+			return this.With(bcc: this.Bcc.Add(value));
+		}
+		
+		/// <summary>Removes the specified elements from the Bcc collection.</summary>
+		public Message RemoveBcc(System.Collections.Generic.IEnumerable<Contact> values) {
+			return this.With(bcc: CollectionExtensions.RemoveRange(this.Bcc, values));
+		}
+		
+		/// <summary>Removes the specified elements from the Bcc collection.</summary>
+		public Message RemoveBcc(params Contact[] values) {
+			return this.With(bcc: CollectionExtensions.RemoveRange(this.Bcc, values));
+		}
+		
+		/// <summary>Removes the specified element from the Bcc collection.</summary>
+		public Message RemoveBcc(Contact value) {
+			return this.With(bcc: this.Bcc.Remove(value));
+		}
+		
+		/// <summary>Clears all elements from the Bcc collection.</summary>
+		public Message RemoveBcc() {
+			return this.With(bcc: this.Bcc.Clear());
+		}
+		
+		
+		/// <summary>Returns a new instance with the Subject property set to the specified value.</summary>
+		public Message WithSubject(System.String value) {
+			if (value == this.Subject) {
+				return this;
+			}
+		
+			return this.With(subject: value);
+		}
+		
+		/// <summary>Returns a new instance with the Body property set to the specified value.</summary>
+		public Message WithBody(System.String value) {
+			if (value == this.Body) {
+				return this;
+			}
+		
+			return this.With(body: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual Message With(
-			ImmutableObjectGraph.Optional<Contact> author,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> to,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> cc,
-			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> bcc,
-			ImmutableObjectGraph.Optional<System.String> subject,
-			ImmutableObjectGraph.Optional<System.String> body) {
+			ImmutableObjectGraph.Optional<Contact> author = default(ImmutableObjectGraph.Optional<Contact>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> to = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> cc = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>>),
+			ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>> bcc = default(ImmutableObjectGraph.Optional<System.Collections.Immutable.ImmutableList<Contact>>),
+			ImmutableObjectGraph.Optional<System.String> subject = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> body = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        if (
 				(author.IsDefined && author.Value != this.Author) || 
 				(to.IsDefined && to.Value != this.To) || 
@@ -316,12 +316,12 @@ namespace Demo {
 				(subject.IsDefined && subject.Value != this.Subject) || 
 				(body.IsDefined && body.Value != this.Body)) {
 	            return new Message(
-					author.GetValueOrDefault(this.Author),
-					to.GetValueOrDefault(this.To),
-					cc.GetValueOrDefault(this.Cc),
-					bcc.GetValueOrDefault(this.Bcc),
-					subject.GetValueOrDefault(this.Subject),
-					body.GetValueOrDefault(this.Body));
+					author: author.GetValueOrDefault(this.Author),
+					to: to.GetValueOrDefault(this.To),
+					cc: cc.GetValueOrDefault(this.Cc),
+					bcc: bcc.GetValueOrDefault(this.Bcc),
+					subject: subject.GetValueOrDefault(this.Subject),
+					body: body.GetValueOrDefault(this.Body));
 	        } else {
 	            return this;
 	        }
@@ -520,11 +520,11 @@ namespace Demo {
 	    }
 	
 	    public static Contact Create(
-			ImmutableObjectGraph.Optional<System.String> name,
-			ImmutableObjectGraph.Optional<System.String> email) {
+			ImmutableObjectGraph.Optional<System.String> name = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> email = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        return DefaultInstance.With(
-				name.GetValueOrDefault(DefaultInstance.Name),
-				email.GetValueOrDefault(DefaultInstance.Email));
+				name: name.GetValueOrDefault(DefaultInstance.Name),
+				email: email.GetValueOrDefault(DefaultInstance.Email));
 	    }
 	
 	    public System.String Name {
@@ -535,34 +535,34 @@ namespace Demo {
 	        get { return this.email; }
 	    }
 		
-		///// <summary>Returns a new instance with the Name property set to the specified value.</summary>
-		//public Contact WithName(System.String value) {
-		//	if (value == this.Name) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(name: value);
-		//}
+		/// <summary>Returns a new instance with the Name property set to the specified value.</summary>
+		public Contact WithName(System.String value) {
+			if (value == this.Name) {
+				return this;
+			}
 		
-		///// <summary>Returns a new instance with the Email property set to the specified value.</summary>
-		//public Contact WithEmail(System.String value) {
-		//	if (value == this.Email) {
-		//		return this;
-		//	}
-		//
-		//	return this.With(email: value);
-		//}
+			return this.With(name: value);
+		}
+		
+		/// <summary>Returns a new instance with the Email property set to the specified value.</summary>
+		public Contact WithEmail(System.String value) {
+			if (value == this.Email) {
+				return this;
+			}
+		
+			return this.With(email: value);
+		}
 	
 	    /// <summary>Returns a new instance of this object with any number of properties changed.</summary>
 	    public virtual Contact With(
-			ImmutableObjectGraph.Optional<System.String> name,
-			ImmutableObjectGraph.Optional<System.String> email) {
+			ImmutableObjectGraph.Optional<System.String> name = default(ImmutableObjectGraph.Optional<System.String>),
+			ImmutableObjectGraph.Optional<System.String> email = default(ImmutableObjectGraph.Optional<System.String>)) {
 	        if (
 				(name.IsDefined && name.Value != this.Name) || 
 				(email.IsDefined && email.Value != this.Email)) {
 	            return new Contact(
-					name.GetValueOrDefault(this.Name),
-					email.GetValueOrDefault(this.Email));
+					name: name.GetValueOrDefault(this.Name),
+					email: email.GetValueOrDefault(this.Email));
 	        } else {
 	            return this;
 	        }
