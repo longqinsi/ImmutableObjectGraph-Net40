@@ -6,9 +6,9 @@ HiddenTypes.Add(typeof(ParameterStyle));
 
 DiscoverTemplateTypes();
 #><#+
-protected static HashSet<Type> HiddenTypes = new HashSet<Type>();
+protected static HashSetV20<Type> HiddenTypes = new HashSetV20<Type>();
 
-protected static HashSet<MetaType> TemplateTypes { get; private set; }
+protected static HashSetV20<MetaType> TemplateTypes { get; private set; }
 
 protected static string PascalCase(string name) {
     return name.Substring(0,1).ToUpperInvariant() + name.Substring(1);
@@ -20,7 +20,7 @@ protected static string CamelCase(string name) {
 
 protected static void DiscoverTemplateTypes() {
     var rootType = System.Reflection.MethodBase.GetCurrentMethod().DeclaringType;
-    TemplateTypes = new HashSet<MetaType>();
+    TemplateTypes = new HashSetV20<MetaType>();
     var pendingTypes = new Queue<Type>();
 
     Func<Type, bool> includeTypeTest = t => t.GetCustomAttribute<System.Runtime.CompilerServices.CompilerGeneratedAttribute>() == null 
