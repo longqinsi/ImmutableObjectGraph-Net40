@@ -326,7 +326,7 @@ protected class MetaType {
     }
 
     protected virtual MetaType FindMetaType(Type type) {
-        return TemplateTypes.SingleOrDefault(mt => mt.Type == type);
+        return EnumerableV20.SingleOrDefault(TemplateTypes, mt => mt.Type == type);
     }
 
     public class MetaField {
