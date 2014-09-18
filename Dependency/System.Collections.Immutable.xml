@@ -604,6 +604,144 @@
             must be consistent in their definition of equality)
             </summary>        
         </member>
+        <member name="M:System.Linq.EnumerableV20.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>对 IEnumerable&lt;T&gt;的每个元素执行指定操作</summary>
+            <typeparam name="T">IEnumerable&lt;T&gt;序列的元素类型</typeparam>
+            <param name="enumerable">IEnumerable&lt;T&gt;序列</param>
+            <param name="action">要对IEnumerable&lt;T&gt;的每个元素执行的 Action&lt;T&gt;委托。</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="enumerable"/>或<paramref name="action"/>的值为null。</exception>
+        </member>
+        <member name="M:System.Linq.EnumerableV20.CompareTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Comparison{``0})">
+             <summary>
+             对两个枚举数进行比较。
+             </summary>
+             <remarks>
+             将对两个枚举数的元素挨个比较。如果任意一次比较不相等，就以该次比较的结果作为最终比较结果。
+             如果如此比较到其中一个枚举数的元素已经枚举完毕，那么：
+             1.如果另一个枚举数也已枚举完毕，则两者相等；
+             2.否则，则以仍有剩余元素者为大。
+             </remarks>
+             <typeparam name="TSource">枚举的对象的类型</typeparam>
+             <param name="x">要比较的第一个枚举数</param>
+             <param name="y">要比较的第二个枚举数</param>
+             <param name="comparison">比较元素时要使用的 <see cref="T:System.Comparison`1"/></param>
+             <returns>一个有符号整数，指示 <paramref name="x"/> 与 <paramref name="y"/> 的相对值，如下表所示。
+             <list type="table">
+                <listheader>
+                    <term>值</term>
+                    <description>含义</description>
+                </listheader>
+                <item>
+                    <term>小于0</term>
+                    <description><paramref name="x"/>小于<paramref name="y"/></description>
+                </item>
+                <item>
+                    <term>0</term>
+                    <description><paramref name="x"/>等于<paramref name="y"/></description>
+                </item>
+                <item>
+                    <term>大于0</term>
+                    <description><paramref name="x"/>大于<paramref name="y"/></description>
+                </item>
+            </list>
+             </returns>
+             <exception cref="T:System.ArgumentNullException"><paramref name="x"/>, <paramref name="y"/>或<paramref name="comparison"/>等于null。</exception>
+             <exception cref="T:System.ArgumentException"><paramref name="comparison"/> 的实现导致比较时出现错误。 例如，将某个项与其自身进行比较时，<paramref name="comparison"/> 可能不返回 0。</exception>
+        </member>
+        <member name="M:System.Linq.EnumerableV20.CompareTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
+             <summary>
+             使用指定的比较器对两个枚举数进行比较。
+             </summary>
+             <remarks>
+             将对两个枚举数的元素挨个比较。如果任意一次比较不相等，就以该次比较的结果作为最终比较结果。
+             如果如此比较到其中一个枚举数的元素已经枚举完毕，那么：
+             1.如果另一个枚举数也已枚举完毕，则两者相等；
+             2.否则，则以仍有剩余元素者为大。
+             </remarks>
+             <typeparam name="TSource">枚举的对象的类型</typeparam>
+             <param name="x">要比较的第一个枚举数</param>
+             <param name="y">要比较的第二个枚举数</param>
+             <param name="comparer">比较元素时要使用的 <see cref="T:System.Collections.Generic.IComparer`1"/> 实现，或者为null，表示使用默认比较器 <see cref="P:System.Collections.Generic.Comparer`1.Default"/></param>
+             <returns>一个有符号整数，指示 <paramref name="x"/> 与 <paramref name="y"/> 的相对值，如下表所示。
+             <list type="table">
+                <listheader>
+                    <term>值</term>
+                    <description>含义</description>
+                </listheader>
+                <item>
+                    <term>小于0</term>
+                    <description><paramref name="x"/>小于<paramref name="y"/></description>
+                </item>
+                <item>
+                    <term>0</term>
+                    <description><paramref name="x"/>等于<paramref name="y"/></description>
+                </item>
+                <item>
+                    <term>大于0</term>
+                    <description><paramref name="x"/>大于<paramref name="y"/></description>
+                </item>
+            </list>
+             </returns>
+             <exception cref="T:System.InvalidOperationException">comparer 为 null，且默认比较器 <see cref="P:System.Collections.Generic.Comparer`1.Default"/> 找不到<typeparamref name="TSource"/> 类型的 <see cref="T:System.IComparable`1"/> 泛型接口或 <see cref="T:System.IComparable"/> 接口的实现。</exception>
+             <exception cref="T:System.ArgumentNullException"><paramref name="x"/>或<paramref name="y"/>等于null。</exception>
+             <exception cref="T:System.ArgumentException"><paramref name="comparer"/> 的实现导致比较时出现错误。 例如，将某个项与其自身进行比较时，<paramref name="comparer"/> 可能不返回 0。</exception>
+        </member>
+        <member name="M:System.Linq.EnumerableV20.CompareTo``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+             <summary>
+             对两个枚举数进行比较。
+             </summary>
+             <remarks>
+             将对两个枚举数的元素挨个比较。如果任意一次比较不相等，就以该次比较的结果作为最终比较结果。
+             如果如此比较到其中一个枚举数的元素已经枚举完毕，那么：
+             1.如果另一个枚举数也已枚举完毕，则两者相等；
+             2.否则，则以仍有剩余元素者为大。
+             </remarks>
+             <typeparam name="TSource">枚举的对象的类型，该类型必须实现<see cref="T:System.IComparable`1"/>接口</typeparam>
+             <param name="x">要比较的第一个枚举数</param>
+             <param name="y">要比较的第二个枚举数</param>
+             <returns>一个有符号整数，指示 <paramref name="x"/> 与 <paramref name="y"/> 的相对值，如下表所示。
+             <list type="table">
+                <listheader>
+                    <term>值</term>
+                    <description>含义</description>
+                </listheader>
+                <item>
+                    <term>小于0</term>
+                    <description><paramref name="x"/>小于<paramref name="y"/></description>
+                </item>
+                <item>
+                    <term>0</term>
+                    <description><paramref name="x"/>等于<paramref name="y"/></description>
+                </item>
+                <item>
+                    <term>大于0</term>
+                    <description><paramref name="x"/>大于<paramref name="y"/></description>
+                </item>
+            </list>
+             </returns>
+             <exception cref="T:System.ArgumentNullException"><paramref name="x"/>或<paramref name="y"/>等于null。</exception>
+        </member>
+        <member name="M:System.Linq.EnumerableV20.StartsWith``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            判断第一个枚举数是否以第二个枚举数作为开始部分
+            </summary>
+            <typeparam name="TSource">枚举的对象的类型，该类型必须实现<see cref="T:System.IEquatable`1"/>接口</typeparam>
+            <param name="x">第一个枚举数</param>
+            <param name="y">第二个枚举数</param>
+            <returns>判断结果</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="x"/>或<paramref name="y"/>为null。</exception>
+        </member>
+        <member name="M:System.Linq.EnumerableV20.StartsWith``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            判断第一个枚举数是否以第二个枚举数作为开始部分
+            </summary>
+            <typeparam name="TSource">枚举的对象的类型，该类型必须实现<see cref="T:System.IEquatable`1"/>接口</typeparam>
+            <param name="x">第一个枚举数</param>
+            <param name="y">第二个枚举数</param>
+            <param name="equalityComparer">用于执行相等比较的接口对象</param>
+            <returns>判断结果</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="x"/>,<paramref name="y"/>, 或<paramref name="equalityComparer"/>为null。</exception>
+        </member>
         <member name="T:System.Linq.SystemCore_EnumerableDebugView`1">
             <summary>
             This class provides the items view for the Enumerable
